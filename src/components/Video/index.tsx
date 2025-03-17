@@ -9,7 +9,7 @@ export const Video = ({ id, className }: { id: string, className?: string }) => 
       automirror
       sessionId={id}
       type='video'
-      className={cn('h-auto bg-slate-500/80 rounded-md', className, {
+      className={cn('h-auto bg-slate-500/80 rounded-md object-cover', className, {
         hidden: videoState.isOff,
       })}
     />

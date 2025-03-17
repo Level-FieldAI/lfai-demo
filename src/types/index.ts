@@ -4,6 +4,18 @@ export enum ConversationStatus {
   ERROR = 'error',
 }
 
+export type IReplicaInfo = {
+  replica_id: string;
+  replica_name: string;
+  thumbnail_video_url: string;
+  training_progress: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  error_message: string | null;
+  replica_type?: string;
+};
+
 export type IConversation = {
   conversation_id: string;
   conversation_name: string;

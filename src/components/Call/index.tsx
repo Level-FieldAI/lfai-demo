@@ -30,21 +30,21 @@ export const Call = () => {
               id={remoteParticipantIds[0]}
               className={
                 cn({
-                  'max-h-[50vh] min-h-[20rem]': mode === 'full',
-                  'max-h-[15rem]': mode === 'minimal',
+                  'w-full max-w-lg aspect-[9/16]': mode === 'full',
+                  'w-full max-w-xs aspect-[9/16]': mode === 'minimal',
                 })
               }
             /> :
-            <div className='relative flex items-center justify-center size-[50vh]'>
+            <div className='relative flex items-center justify-center w-full max-w-lg aspect-[9/16] bg-slate-100 rounded-md'>
               <p className='text-2xl text-black'>Waiting for others to join...</p>
             </div>
         }
         {localSessionId && (
           <Video
             id={localSessionId}
-            className={cn('absolute bottom-2 right-2', {
-              'max-h-40': mode === 'full',
-              'max-h-20': mode === 'minimal',
+            className={cn('absolute bottom-4 right-4', {
+              'w-32 md:w-40 aspect-[9/16]': mode === 'full',
+              'w-24 aspect-[9/16]': mode === 'minimal',
             })}
           />
         )}
