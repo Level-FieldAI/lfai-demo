@@ -10,8 +10,8 @@ export const createConversation = async (): Promise<IConversation> => {
         'x-api-key': TAVUS_API_KEY,
       },
       body: JSON.stringify({
-        persona_id: 'p9a95912', // Stock Demo Persona
-        //replica_id: 'r524416f6e9e'
+        persona_id: 'pcabf8c842bb',
+        replica_id: 'rbb0f535dd'
       }),
     });
 
