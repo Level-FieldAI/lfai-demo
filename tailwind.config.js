@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ['Sora', 'sans-serif'],
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

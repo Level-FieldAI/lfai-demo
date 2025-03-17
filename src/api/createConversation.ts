@@ -11,7 +11,8 @@ export const createConversation = async (): Promise<IConversation> => {
       },
       body: JSON.stringify({
         persona_id: 'pcabf8c842bb',
-        replica_id: 'rbb0f535dd'
+        replica_id: 'rbb0f535dd',
+        custom_greeting: 'Hello I am Jasmine the AI assistant for WhitegloveAI. How may I help you?',
       }),
     });
 
