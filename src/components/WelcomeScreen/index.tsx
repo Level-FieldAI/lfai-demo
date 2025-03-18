@@ -11,15 +11,15 @@ export const WelcomeScreen = ({ onStart, loading }: { onStart: (language: string
   };
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen gap-6 md:gap-10 p-4 md:p-10 overflow-y-auto py-8'>
-      <img src="/logo.png" alt="WhitegloveAI Logo" className="w-36 md:w-48 mb-2 md:mb-4" />
+    <div className='flex flex-col items-center justify-center min-h-screen gap-3 md:gap-5 p-3 md:p-6 overflow-y-auto py-4'>
+      <img src="/logo.png" alt="WhitegloveAI Logo" className="w-36 md:w-48 mb-1 md:mb-2" />
       
       <h1 className='text-2xl md:text-4xl text-center font-bold'>
         The Future of AI Interaction Starts Now
       </h1>
       <h2 className='text-lg md:text-xl text-center text-gray-700'>Dive Into an Engaging, Intelligent, and Fun Experience</h2>
       
-      <div className="w-full max-w-xs">
+      <div className="w-full max-w-xs mt-1">
         <label htmlFor="language-select" className="block text-sm font-medium text-gray-700 mb-1">
           Conversation Language
         </label>
@@ -37,7 +37,32 @@ export const WelcomeScreen = ({ onStart, loading }: { onStart: (language: string
         </Select>
       </div>
       
-      <Button className="mt-4 px-6 py-2 text-lg" onClick={handleStart}>
+      <div className="w-full max-w-md bg-gray-50 p-3 rounded-lg border border-gray-200 mt-2">
+        <h3 className="font-semibold text-base mb-1">We'll need to use your camera, but don't worry—we take your privacy seriously.</h3>
+        <p className="text-sm text-gray-700 mb-2">
+          When you enable your camera, our AI avatar can see what you see and respond in real-time.
+          It's what makes this experience so unique! But we understand you might have questions about privacy, so here's what you should know:
+        </p>
+        <ul className="text-sm text-gray-700 mb-2 space-y-0.5">
+          <li className="flex items-start">
+            <span className="text-green-500 mr-1">✓</span> Nothing gets recorded or saved — ever. The video feed isn't stored anywhere.
+          </li>
+          <li className="flex items-start">
+            <span className="text-green-500 mr-1">✓</span> Everything happens right on your device. Your camera feed never leaves your computer or phone.
+          </li>
+          <li className="flex items-start">
+            <span className="text-green-500 mr-1">✓</span> Your data stays yours. We've built this with privacy as our #1 priority.
+          </li>
+        </ul>
+        <p className="text-sm text-gray-700 mb-1">
+          Think of it like a video call where the other person can see you only during the call, but doesn't take screenshots or record anything.
+        </p>
+        <p className="text-sm text-gray-700">
+          Ready to see what our AI avatar can do? Just click "Allow" when prompted, and you can always disable camera access at any time.
+        </p>
+      </div>
+      
+      <Button className="mt-2 px-6 py-2 text-lg" onClick={handleStart}>
         {loading ? 'Loading...' : 'Start Conversation'}
       </Button>
     </div>
