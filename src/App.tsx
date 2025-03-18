@@ -37,10 +37,10 @@ function App() {
     }
   }, [conversation])
 
-  const handleStart = async () => {
+  const handleStart = async (language: string) => {
     try {
       setLoading(true)
-      const conversation = await createConversation()
+      const conversation = await createConversation(language)
       setConversation(conversation)
       setScreen('hairCheck')
     } catch {

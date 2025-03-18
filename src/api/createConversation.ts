@@ -1,8 +1,11 @@
 import { TAVUS_API_KEY } from '@/config';
 import { IConversation } from '@/types';
+import { getGreetingForLanguage } from '@/constants/greetings';
 
-export const createConversation = async (): Promise<IConversation> => {
+export const createConversation = async (language: string = 'english'): Promise<IConversation> => {
   try {
+    const greeting = getGreetingForLanguage(language);
+    
     const response = await fetch('https://tavusapi.com/v2/conversations', {
       method: 'POST',
       headers: {
@@ -12,7 +15,10 @@ export const createConversation = async (): Promise<IConversation> => {
       body: JSON.stringify({
         persona_id: 'pcabf8c842bb',
         replica_id: 'rbb0f535dd',
-        custom_greeting: 'Hello I am Gloria! I am an AI consultant with WhitegloveAI. How may I help you?',
+        custom_greeting: greeting,
+        properties: {
+          language: language,
+        },
       }),
     });
 
