@@ -88,7 +88,7 @@ function App() {
             
             {/* Main content area */}
             <div className="flex-grow">
-              <HairCheckScreen handleEnd={handleEnd} handleJoin={handleJoin} />
+              <HairCheckScreen handleEnd={handleEnd} handleJoin={handleJoin} isMobile={isMobile} />
             </div>
             
             {/* Minimal footer */}
@@ -114,7 +114,7 @@ function App() {
             
             {/* Main content area - maximized for video */}
             <div className="flex-grow w-full">
-              <CallScreen conversation={conversation} handleEnd={handleEnd} />
+              <CallScreen conversation={conversation} handleEnd={handleEnd} isMobile={isMobile} />
             </div>
             
             {/* Minimal footer */}
