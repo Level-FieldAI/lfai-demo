@@ -1,5 +1,3 @@
-import { SupportedLanguage } from './languages';
-
 export type LanguageGreeting = {
   language: string;
   greeting: string;
