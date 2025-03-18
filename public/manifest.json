@@ -1,0 +1,21 @@
+{
+  "name": "WhitegloveAI Avatar",
+  "short_name": "WGAI Avatar",
+  "description": "Experience real-time conversations with WhitegloveAI's advanced avatar technology",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4169E1",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.avif",
+      "sizes": "512x512",
+      "type": "image/avif"
+    }
+  ]
+}
