@@ -1,4 +1,3 @@
-
 import { useVideoTrack, DailyVideo } from '@daily-co/daily-react';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
