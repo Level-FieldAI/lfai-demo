@@ -68,8 +68,13 @@ export const Call = () => {
           <Video
             id={localSessionId}
             className={cn('absolute z-10 border-2 border-white shadow-lg rounded-md overflow-hidden', {
-              'bottom-6 right-6 w-1/4 min-w-[120px] max-w-[180px] aspect-video': mode === 'full',
-              'bottom-4 right-4 w-24 aspect-video': mode === 'minimal',
+              // Mobile: 9:16 aspect ratio for user camera
+              'bottom-6 right-6 w-1/4 min-w-[120px] max-w-[180px] aspect-[9/16]': isMobile && mode === 'full',
+              // Desktop: 16:9 aspect ratio for user camera
+              'bottom-6 right-6 w-1/4 min-w-[120px] max-w-[180px] aspect-video': !isMobile && mode === 'full',
+              // Minimal mode - also apply responsive aspect ratio
+              'bottom-4 right-4 w-24 aspect-[9/16]': isMobile && mode === 'minimal',
+              'bottom-4 right-4 w-24 aspect-video': !isMobile && mode === 'minimal',
             })}
           />
         )}
