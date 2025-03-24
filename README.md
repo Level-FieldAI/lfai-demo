@@ -19,7 +19,7 @@ Check out our demo video to see the Conversational Video Interface in action:
 ## 🛠 Getting Started
 0. Clone the repository
 ```sh
-git clone https://github.com/WhiteGloveAI/avatar-tavus-examples.git
+git clone https://github.com/whitegloveai/tavus-avatar-demo.git
 ```
 
 1. Install dependencies:
