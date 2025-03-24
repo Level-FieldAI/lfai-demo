@@ -10,37 +10,38 @@ This application demonstrates the WhitegloveAI Lab avatar technology using Tavus
 - Integration with Tavus API for conversation management
 - "Managed by WGAI Lab" footer attribution
 
-|                                                                    |                                                                                              |
-| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
-| ![Prejoin UI](https://cdn.replica.tavus.io/git-examples/scr-1.png) | ![Hair check UI](https://cdn.replica.tavus.io/git-examples/scr-2.png) |
-| ![in-call UI](https://cdn.replica.tavus.io/git-examples/scr-3.png) |
-
-
 ## 🎥 Demo Video
 
 Check out our demo video to see the Conversational Video Interface in action:
 
-[Watch the Demo](https://www.loom.com/share/b4e3ef661e264260a8d8f4cede48aaa8?sid=ada64974-5495-4c52-b635-7ac76b543208)
-
-
+[Demo](https://avatar.labs.whitegloveai.com)
 
 ## 🛠 Getting Started
+0. Clone the repository
+```sh
+git clone https://github.com/WhiteGloveAI/avatar-tavus-examples.git
+```
 
 1. Install dependencies:
-   ```
-   npm install
-   ```
+```sh
+npm install
+```
 
 2. Create a `.env` file in the root directory and add your Tavus API key:
-   ```
-   VITE_APP_TAVUS_API_KEY=your_api_key_here
-   ```
-   You can create an API key at https://platform.tavus.io/
+```
+VITE_APP_TAVUS_API_KEY=your_api_key_here
+```
+You can create an API key at https://platform.tavus.io/
 
 3. Start the development server:
-   ```
-   npm run dev
-   ```
+```
+npm run dev
+```
+
+4. Start your customizations:
+- Add your own greetings and personality to the `src/constants/greetings.ts` file. Make sure to do in multiple languages.
+- Modify the `index.html`  and `/public` folder to match your branding.
+- Add your Tavus Avatar Persona ID and Replica ID variables to the `src/api/createConversation.ts` file.
 
 ## 📚 Learn More
 
