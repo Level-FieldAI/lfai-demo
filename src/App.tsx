@@ -7,6 +7,7 @@ import { createConversation, endConversation } from '@/api'
 import { IConversation } from '@/types'
 import { useToast } from "@/hooks/use-toast"
 import { cn } from '@/lib/utils'
+import { AvatarUseCase, DEFAULT_AVATAR } from '@/constants/avatars'
 
 function App() {
   const { toast } = useToast()
@@ -14,6 +15,7 @@ function App() {
   const [conversation, setConversation] = useState<IConversation | null>(null)
   const [loading, setLoading] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [currentAvatar, setCurrentAvatar] = useState<AvatarUseCase>(DEFAULT_AVATAR)
 
   // Detect if device is mobile
   useEffect(() => {
@@ -37,17 +39,26 @@ function App() {
     }
   }, [conversation])
 
-  const handleStart = async (language: string) => {
+  const handleStart = async ({ language, avatarUseCase }: { language: string; avatarUseCase: AvatarUseCase }) => {
     try {
       setLoading(true)
-      const conversation = await createConversation(language)
-      setConversation(conversation)
+      setCurrentAvatar(avatarUseCase)
+      
+      let conversationData;
+      
+      // We've made the createConversation function compatible with both implementations
+      console.log('Starting conversation with avatar:', avatarUseCase.name);
+      conversationData = await createConversation({ language, avatarUseCase });
+      
+      setConversation(conversationData)
       setScreen('hairCheck')
-    } catch {
+    } catch (error) {
+      console.error("App error starting conversation:", error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: 'Check console for details',
+        title: "Connection Error",
+        description: `Could not create conversation: ${errorMessage}`,
       })
     } finally {
       setLoading(false)
@@ -91,6 +102,12 @@ function App() {
               <HairCheckScreen handleEnd={handleEnd} handleJoin={handleJoin} isMobile={isMobile} />
             </div>
             
+            {/* Avatar info */}
+            <div className="bg-gray-50 p-2 border-t border-gray-200">
+              <p className="text-center text-sm font-medium">{currentAvatar.name}</p>
+              <p className="text-center text-xs text-gray-600">{currentAvatar.description}</p>
+            </div>
+            
             {/* Minimal footer */}
             <footer className="py-2 text-center text-gray-600 text-xs sm:text-sm">
               <p>WGAI Lab Demo</p>
@@ -117,10 +134,18 @@ function App() {
               <CallScreen conversation={conversation} handleEnd={handleEnd} isMobile={isMobile} />
             </div>
             
+            {/* Avatar info - very compact */}
+            <div className={cn("bg-gray-50 border-t border-gray-200", {
+              "py-1": isMobile,
+              "py-0.5": !isMobile,
+            })}>
+              <p className="text-center text-xs font-medium">{currentAvatar.name}</p>
+            </div>
+            
             {/* Minimal footer */}
             <footer className={cn("text-center text-gray-600 text-xs sm:text-sm", {
-              "py-2": isMobile,
-              "py-1": !isMobile, // Even more compact on desktop
+              "py-1": isMobile,
+              "py-0.5": !isMobile, // Even more compact on desktop
             })}>
               <p>WGAI Lab Demo</p>
             </footer>
