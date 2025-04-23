@@ -62,7 +62,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
   },
   {
     id: 'nebraska-basketball',
-    name: 'Nebraska Basketball Avatar',
+    name: 'Jarod - Nebraska Basketball Avatar',
     description: 'Interactive avatar for University of Nebraska Basketball',
     persona_id: 'p0741545fff4',
     replica_id: 'r2c1d5839ac0',
