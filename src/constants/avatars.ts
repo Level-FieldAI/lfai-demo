@@ -49,6 +49,26 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     defaultLanguage: 'english',
     nameInGreeting: 'Luna',
     role: 'a benefits advisor with TotalCare Solutions'
+  },
+  {
+    id: 'jason-fields-frisco',
+    name: 'Jason - Fields Frisco Sales Consultant',
+    description: 'Sales consultant for Fields Frisco luxury community',
+    persona_id: 'p329111469cc',
+    replica_id: 'r9653b930d07',
+    defaultLanguage: 'english',
+    nameInGreeting: 'Jason',
+    role: 'a sales consultant for Fields Frisco'
+  },
+  {
+    id: 'nebraska-basketball',
+    name: 'Nebraska Basketball Avatar',
+    description: 'Interactive avatar for University of Nebraska Basketball',
+    persona_id: 'p0741545fff4',
+    replica_id: 'r9653b930d07',
+    defaultLanguage: 'english',
+    nameInGreeting: 'Nebraska Basketball Guide',
+    role: 'a specialist in University of Nebraska Basketball'
   }
 ];
 
