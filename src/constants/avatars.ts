@@ -69,7 +69,18 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     defaultLanguage: 'english',
     nameInGreeting: 'Nebraska Basketball Guide',
     role: 'a specialist in University of Nebraska Basketball'
+  },
+  {
+    id: 'title closing',
+    name: 'Phillip - Virtual Closing Avatar',
+    description: 'Interactive avatar for Community National Title',
+    persona_id: 'p1389ed2744b',
+    replica_id: 'r2c1d5839ac0',
+    defaultLanguage: 'english',
+    nameInGreeting: 'Phillip',
+    role: 'a title specialist at Community National Title'
   }
+
 ];
 
 export const DEFAULT_AVATAR = AVATAR_USE_CASES[0]; // Gloria as default
