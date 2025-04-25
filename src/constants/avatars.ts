@@ -30,6 +30,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     nameInGreeting: 'Diego',
     role: 'a historical sites guide for Goodwin Cabin'
   },
+  /*
   {
     id: 'raj-safety',
     name: 'Raj - RigSafe Safety Officer',
@@ -50,6 +51,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     nameInGreeting: 'Luna',
     role: 'a benefits advisor with TotalCare Solutions'
   },
+  */
   {
     id: 'jason-fields-frisco',
     name: 'Jason - Fields Frisco Sales Consultant',
@@ -89,8 +91,17 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     defaultLanguage: 'english',
     nameInGreeting: 'Phillip',
     role: 'a title specialist at Community National Title'
-  }
-
+  },
+  {
+    id: 'St. Kitts Tourguide',
+    name: 'Mervyn - St. Kitts Tour Guide Avatar',
+    description: 'Interactive avatar for St. Kitts',
+    persona_id: 'p92c20ffb55d',
+    replica_id: 'r73fb0681a20',
+    defaultLanguage: 'english',
+    nameInGreeting: 'Mervyn',
+    role: 'a tourism specialist at St. Kitts Tourism'
+  },
 ];
 
 export const DEFAULT_AVATAR = AVATAR_USE_CASES[0]; // Gloria as default
