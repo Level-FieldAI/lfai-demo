@@ -69,8 +69,8 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     persona_id: 'p0741545fff4',
     replica_id: 'r2c1d5839ac0',
     defaultLanguage: 'english',
-    nameInGreeting: 'Nebraska Basketball Guide',
-    role: 'a specialist in University of Nebraska Basketball'
+    nameInGreeting: 'Coach Hoiberg',
+    role: 'Head Coach of the University of Nebraska Mens Basketball Team'
   },
   {
     id: 'Colorado Football',
