@@ -57,7 +57,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     name: 'Jason - Fields Frisco Sales Consultant',
     description: 'Sales consultant for Fields Frisco luxury community',
     persona_id: 'p329111469cc',
-    replica_id: 'r9653b930d07',
+    replica_id: 'r73fb0681a20',
     defaultLanguage: 'english',
     nameInGreeting: 'Jason',
     role: 'a sales consultant for Fields Frisco'
@@ -97,8 +97,8 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     name: 'Mervyn - St. Kitts Tour Guide Avatar',
     description: 'Interactive avatar for St. Kitts',
     persona_id: 'p92c20ffb55d',
-    replica_id: 'r73fb0681a20',
-    defaultLanguage: 'english',
+    replica_id: 'r9653b930d07',
+    defaultLanguage: 'kittitian_creole',
     nameInGreeting: 'Mervyn',
     role: 'a tourism specialist at St. Kitts Tourism'
   },
