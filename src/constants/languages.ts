@@ -12,7 +12,6 @@ export const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
   { value: "german", label: "German", flag: "🇩🇪" },
   { value: "hindi", label: "Hindi", flag: "🇮🇳" },
   { value: "french", label: "French (France)", flag: "🇫🇷" },
-  { value: "french_ca", label: "French (Canada)", flag: "🇨🇦" },
   { value: "korean", label: "Korean", flag: "🇰🇷" },
   { value: "portuguese_br", label: "Portuguese (Brazil)", flag: "🇧🇷" },
   { value: "portuguese", label: "Portuguese (Portugal)", flag: "🇵🇹" },
@@ -38,7 +37,6 @@ export const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
   { value: "danish", label: "Danish", flag: "🇩🇰" },
   { value: "tamil", label: "Tamil", flag: "🇮🇳" },
   { value: "ukrainian", label: "Ukrainian", flag: "🇺🇦" },
-  { value: "kittitian_creole", label: "Saint Kitts Creole English", flag: "🇰🇳" },
 ];
 
 export const DEFAULT_LANGUAGE = SUPPORTED_LANGUAGES[0]; // English (USA)
