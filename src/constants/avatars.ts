@@ -25,7 +25,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     name: 'Diego - Historical Site Guide',
     description: 'Historical Sites Guide for Goodwin Cabin',
     persona_id: 'p106de0182c2', 
-    replica_id: 'r5c5d0370b', 
+    replica_id: 'r73fb0681a20', 
     defaultLanguage: 'english',
     nameInGreeting: 'Diego',
     role: 'a historical sites guide for Goodwin Cabin'
