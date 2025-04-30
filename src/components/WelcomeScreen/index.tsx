@@ -1,5 +1,5 @@
 // src/components/WelcomeScreen.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '@/constants/languages';
