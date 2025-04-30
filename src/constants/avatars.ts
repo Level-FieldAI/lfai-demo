@@ -72,6 +72,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     nameInGreeting: 'Coach Hoiberg',
     role: 'Head Coach of the University of Nebraska Mens Basketball Team'
   },
+  /*
   {
     id: 'Colorado Football',
     name: 'Prime - Colorado Football Avatar',
@@ -81,7 +82,8 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     defaultLanguage: 'english',
     nameInGreeting: 'Colorado Football Guide the Prime Era',
     role: 'a specialist in University of Colorado Football'
-  },
+  }
+    */
   {
     id: 'title closing',
     name: 'Phillip - Virtual Closing Avatar',
