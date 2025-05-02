@@ -111,8 +111,8 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     persona_id: 'p69f3923f161',
     replica_id: 'r73fb0681a20',
     defaultLanguage: 'English',
-    nameInGreeting: '“Hallo, Mavericks fans! This is Dirk Nowitzki—proud to have spent my entire NBA career in Dallas. From my first game in 1998 to raising the championship trophy in 2011, every moment with the Mavs has been unforgettable. I’m excited to share stories from my journey and celebrate what makes this organization and our fans so special. What would you like to know about my career or the Mavericks family?”',
-    role: 'Let’s go Mavs! Welcome to the Dallas Mavericks fan experience—where every game is a party and every fan is part of the family! What’s your name, and what gets you hyped for game day?'
+    nameInGreeting: 'Dirk Nowitzki',
+    role: '—proud to have spent my entire NBA career in Dallas. From my first game in 1998 to raising the championship trophy in 2011, every moment with the Mavs has been unforgettable. I’m excited to share stories from my journey and celebrate what makes this organization and our fans so special. What would you like to know about my career or the Mavericks family?'
   },
 ];
 
