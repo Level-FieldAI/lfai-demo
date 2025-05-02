@@ -104,6 +104,16 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     nameInGreeting: 'Mervyn',
     role: 'a tourism specialist at St. Kitts Tourism'
   },
+  {
+    id: 'Dallas Maverics',
+    name: 'Champ - Dallas Mavericks Fan Engagement Avatar',
+    description: 'Interactive avatar for the Dallas Mavericks',
+    persona_id: 'p7f27355a0e4',
+    replica_id: 'r73fb0681a20',
+    defaultLanguage: 'English',
+    nameInGreeting: 'Champ',
+    role: 'Welcome to the ultimate Dallas Mavericks fan experience—where every game is a party and every fan is part of the family!'
+  },
 ];
 
 export const DEFAULT_AVATAR = AVATAR_USE_CASES[0]; // Gloria as default
