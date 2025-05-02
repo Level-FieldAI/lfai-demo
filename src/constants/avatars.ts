@@ -112,7 +112,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     replica_id: 'r73fb0681a20',
     defaultLanguage: 'English',
     nameInGreeting: 'Champ',
-    role: 'Welcome to the ultimate Dallas Mavericks fan experience—where every game is a party and every fan is part of the family!'
+    role: 'Let’s go Mavs! Welcome to the Dallas Mavericks fan experience—where every game is a party and every fan is part of the family! What’s your name, and what gets you hyped for game day?'
   },
 ];
 
