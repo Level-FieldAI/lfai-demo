@@ -106,7 +106,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
   },
   {
     id: 'Dallas Mavericks',
-    name: 'Dirk Nowitzki - Dallas Mavericks Fan Engagement Avatar',
+    name: 'Dirk - Dallas Mavericks Fan Engagement Avatar',
     description: 'Interactive avatar for the Dallas Mavericks',
     persona_id: 'p69f3923f161',
     replica_id: 'r73fb0681a20',
