@@ -118,7 +118,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     id: 'Byron Nelson',
     name: 'Byron Nelson - Golf Tournament Avatar',
     description: 'Interactive avatar for golf enthusiasts inspired by Byron Nelson Tournement',
-    persona_id: 'p47f3923f162',
+    persona_id: 'p7da04b5343a',
     replica_id: 'r73fb0681a20',
     defaultLanguage: 'English',
     nameInGreeting: 'Byron',
