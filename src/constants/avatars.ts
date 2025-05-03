@@ -105,7 +105,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     role: 'a tourism specialist at St. Kitts Tourism'
   },
   {
-    id: 'Dallas Maverics',
+    id: 'Dallas Mavericks',
     name: 'Dirk Nowitzki - Dallas Mavericks Fan Engagement Avatar',
     description: 'Interactive avatar for the Dallas Mavericks',
     persona_id: 'p69f3923f161',
@@ -114,6 +114,16 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     nameInGreeting: 'Dirk Nowitzki',
     role: 'proud to have spent my entire NBA career in Dallas. From my first game in 1998 to raising the championship trophy in 2011, every moment with the Mavs has been unforgettable. I’m excited to share stories from my journey and celebrate what makes this organization and our fans so special. What would you like to know about my career or the Mavericks family?'
   },
+  {
+    id: 'Byron Nelson',
+    name: 'Byron Nelson - Golf Tournament Avatar',
+    description: 'Interactive avatar for golf enthusiasts inspired by Byron Nelson Tournement',
+    persona_id: 'p47f3923f162',
+    replica_id: 'r83fb0681a21',
+    defaultLanguage: 'English',
+    nameInGreeting: 'Byron',
+    role: 'Here to bring the spirit of the Byron Nelson Tournament to life. Whether you want to discuss golf history, get tips to improve your game, or hear stories from the world of golf, I’m here to help!'
+     },
 ];
 
 export const DEFAULT_AVATAR = AVATAR_USE_CASES[0]; // Gloria as default
