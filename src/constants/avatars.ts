@@ -124,16 +124,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     nameInGreeting: 'Byron',
     role: 'Here to bring the spirit of the Byron Nelson Tournament to life. Whether you want to discuss golf history, get tips to improve your game, or hear stories from the world of golf, I’m here to help!'
      },
-     {
-      id: 'Massanutten',
-      name: 'Jason - Short Term Rental Avatar',
-      description: 'Interactive avatar for Short term rental experiences, providing insights and tips for hosts and guests alike.',
-      persona_id: 'p08473f5d06c',
-      replica_id: 'r73fb0681a20',
-      defaultLanguage: 'English',
-      nameInGreeting: 'Jason',
-      role: 'I’m your virtual host, here to make your stay comfortable and memorable. Please review our house rules for a smooth experience, and let me know if you have any questions about the home or the amazing things to do in and around Massanutten Resort. Are you interested in outdoor adventures, family fun, or local dining? I’m happy to help you plan the perfect stay!'
-       },
+    
 ];
 
 export const DEFAULT_AVATAR = AVATAR_USE_CASES[0]; // Gloria as default
