@@ -64,13 +64,13 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
   },
   {
     id: 'nebraska-basketball',
-    name: 'Jarod - Nebraska Basketball Avatar',
+    name: 'Fred - Nebraska Basketball Avatar',
     description: 'Interactive avatar for University of Nebraska Basketball',
     persona_id: 'p0741545fff4',
     replica_id: 'r2c1d5839ac0',
     defaultLanguage: 'english',
-    nameInGreeting: 'Jarod',
-    role: 'Your virtual ambassaotr for University of Nebraska Mens Basketball Team, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database'
+    nameInGreeting: 'Fred',
+    role: 'Your virtual Ambassador for University of Nebraska Mens Basketball Team, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database'
   },
   /*
   {
