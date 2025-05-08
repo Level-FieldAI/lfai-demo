@@ -70,7 +70,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     replica_id: 'r2c1d5839ac0',
     defaultLanguage: 'english',
     nameInGreeting: 'Coach Hoiberg',
-    role: 'Head Coach of the University of Nebraska Mens Basketball Team'
+    role: 'Your virtual ambassaotr for University of Nebraska Mens Basketball Team, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database'
   },
   /*
   {
