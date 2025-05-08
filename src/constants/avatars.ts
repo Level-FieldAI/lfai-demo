@@ -69,7 +69,7 @@ export const AVATAR_USE_CASES: AvatarUseCase[] = [
     persona_id: 'p0741545fff4',
     replica_id: 'r2c1d5839ac0',
     defaultLanguage: 'english',
-    nameInGreeting: 'Coach Hoiberg',
+    nameInGreeting: 'Jarod',
     role: 'Your virtual ambassaotr for University of Nebraska Mens Basketball Team, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database'
   },
   /*
