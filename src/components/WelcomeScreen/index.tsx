@@ -40,36 +40,45 @@ export const WelcomeScreen = ({ onStart, loading }: WelcomeScreenProps) => {
       {/* Main Content Area */}
       <div className="w-full max-w-3xl space-y-6 md:space-y-8">
 
-        {/* Avatar Selection Grid */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-3 text-center">
-            Select Virtual Assistant
-          </label>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
-            {AVATAR_USE_CASES.map((avatar) => (
-              <div
-                key={avatar.id}
-                className={cn(
-                  'border rounded-lg p-4 text-center cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:scale-105 flex flex-col items-center justify-center aspect-square',
-                  selectedAvatar.id === avatar.id
-                    ? 'border-indigo-500 ring-2 ring-indigo-300 bg-indigo-50'
-                    : 'border-gray-300 bg-white'
-                )}
-                onClick={() => setSelectedAvatar(avatar)}
-                role="button"
-                aria-pressed={selectedAvatar.id === avatar.id}
-                tabIndex={0}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') setSelectedAvatar(avatar);
-                }}
-              >
-                <span className="text-base font-semibold text-gray-800">{avatar.name}</span>
-                {/* Optionally, show description below name */}
-                {/* <span className="text-xs text-gray-500 mt-1">{avatar.description}</span> */}
-              </div>
-            ))}
-          </div>
+      // In WelcomeScreen.tsx, update the avatar selection section:
+
+{/* Avatar Selection Grid */}
+<div>
+  <label className="block text-lg font-semibold text-gray-700 mb-3 text-center">
+    Select Virtual Assistant
+  </label>
+  <div className="space-y-6">
+    {(Object.entries(AVATAR_CATEGORIES) as [AvatarCategory, AvatarUseCase[]][]).map(([category, avatars]) => (
+      <div key={category} className="space-y-3">
+        <h3 className="text-xl font-semibold text-gray-700 mb-2">{category}</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+          {avatars.map((avatar) => (
+            <div
+              key={avatar.id}
+              className={cn(
+                'border rounded-lg p-4 text-center cursor-pointer transition-all duration-200 ease-in-out hover:shadow-md hover:scale-105 flex flex-col items-center justify-center aspect-square',
+                selectedAvatar.id === avatar.id
+                  ? 'border-indigo-500 ring-2 ring-indigo-300 bg-indigo-50'
+                  : 'border-gray-300 bg-white'
+              )}
+              onClick={() => setSelectedAvatar(avatar)}
+              role="button"
+              aria-pressed={selectedAvatar.id === avatar.id}
+              tabIndex={0}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setSelectedAvatar(avatar);
+              }}
+            >
+              <span className="text-base font-semibold text-gray-800">{avatar.name}</span>
+              {/* Optionally, show description below name */}
+              <span className="text-xs text-gray-500 mt-1">{avatar.description}</span>
+            </div>
+          ))}
         </div>
+      </div>
+    ))}
+  </div>
+</div>
 
         {/* Language Selection */}
         <div className="w-full max-w-xs mx-auto">
@@ -89,6 +98,14 @@ export const WelcomeScreen = ({ onStart, loading }: WelcomeScreenProps) => {
             </SelectContent>
           </Select>
         </div>
+
+        {/* Start Button */}
+        <div className="text-center">
+          <Button className="mt-2 px-8 py-3 text-lg" onClick={handleStart} disabled={loading}>
+            {loading ? 'Loading...' : 'Start Conversation'}
+          </Button>
+        </div>
+      </div>
 
         {/* Privacy Notice */}
         <div className="w-full max-w-md bg-gray-50 p-4 rounded-lg border border-gray-200 mx-auto">
