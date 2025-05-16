@@ -102,9 +102,19 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       description: 'Interactive avatar for St. Kitts',
       persona_id: 'p92c20ffb55d',
       replica_id: 'r9653b930d07',
-      defaultLanguage: 'kittitian_creole',
+      defaultLanguage: 'english',
       nameInGreeting: 'Mervyn',
       role: 'a tourism specialist at St. Kitts Tourism',
+      category: 'Concierge'
+    }, {
+      id: 'Plug and Play',
+      name: 'Saeed - Plug and Play Avatar',
+      description: 'Interactive avatar for Plug and Play',
+      persona_id: 'p4d13ae95122',
+      replica_id: 'r2c1d5839ac0',
+      defaultLanguage: 'english',
+      nameInGreeting: 'Saeed',
+      role: 'the CEO of Plug & Play, What inspired you to start your company, and what problem are you trying to solve?',
       category: 'Concierge'
     }
   ]
