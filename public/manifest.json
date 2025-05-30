@@ -1,7 +1,7 @@
 {
-  "name": "WhitegloveAI Avatar",
-  "short_name": "WGAI Avatar",
-  "description": "Experience real-time conversations with WhitegloveAI's advanced avatar technology",
+  "name": "Level-FieldAI Digital Twin",
+  "short_name": "LFAI Avatar",
+  "description": "Experience real-time conversations with Level-FieldAI Digital Twin Conversation Agents",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

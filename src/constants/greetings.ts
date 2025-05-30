@@ -89,7 +89,7 @@ export const LANGUAGE_GREETING_TEMPLATES: LanguageGreeting[] = [
 export const getGreetingForLanguage = (
   language: string, 
   name: string = 'Gloria', 
-  role: string = 'an AI consultant with WhitegloveAI'
+  role: string = 'an AI consultant with Level-FieldAI'
 ): string => {
   const template = LANGUAGE_GREETING_TEMPLATES.find(g => g.language === language);
   const defaultTemplate = LANGUAGE_GREETING_TEMPLATES[0].template;

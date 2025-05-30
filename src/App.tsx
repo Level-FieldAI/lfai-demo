@@ -92,7 +92,7 @@ function App() {
             <header className="flex justify-center items-center py-2">
               <img
                 src="/logo.png"
-                alt="WhitegloveAI Logo"
+                alt="Level-FieldAI Logo"
                 className="h-8 sm:h-10 object-contain"
               />
             </header>
@@ -110,7 +110,7 @@ function App() {
             
             {/* Minimal footer */}
             <footer className="py-2 text-center text-gray-600 text-xs sm:text-sm">
-              <p>WGAI Lab Demo</p>
+              <p>LFAI Lab Demo</p>
             </footer>
           </div>
         )}
@@ -124,7 +124,7 @@ function App() {
             })}>
               <img
                 src="/logo.png"
-                alt="WhitegloveAI Logo"
+                alt="Level-FieldAI Logo"
                 className="h-8 sm:h-10 object-contain"
               />
             </header>
@@ -147,7 +147,7 @@ function App() {
               "py-1": isMobile,
               "py-0.5": !isMobile, // Even more compact on desktop
             })}>
-              <p>WGAI Lab Demo</p>
+              <p>LFAI Lab Demo</p>
             </footer>
           </div>
         )}
