@@ -1,25 +1,20 @@
-# WhitegloveAI Lab - Avatar Demo with Tavus CVI
+# Level-FieldAI - Digital Twin Demo with Tavus CVI
 
 ## 🚀 Features
 
-This application demonstrates the WhitegloveAI Lab avatar technology using Tavus Conversational Video Interface:
-- Custom WhitegloveAI branding and user interface
+This application demonstrates the Level-FieldAI Lab avatar technology using Tavus Conversational Video Interface:
+- Custom Level-FieldAI branding and user interface
 - Welcome screen with branded logo and "Start Conversation" button
 - Hair check screen with audio and video device selection
 - Video call interface powered by Daily.co
 - Integration with Tavus API for conversation management
-- "Managed by WGAI Lab" footer attribution
+- "Managed by LFAI Lab" footer attribution
 
-## 🎥 Demo Video
-
-Check out our demo video to see the Conversational Video Interface in action:
-
-[Demo](https://avatar.labs.whitegloveai.com)
 
 ## 🛠 Getting Started
 0. Clone the repository
 ```sh
-git clone https://github.com/whitegloveai/tavus-avatar-demo.git
+git clone https://github.com/level-fieldai/tavus-avatar-demo.git
 ```
 
 1. Install dependencies:
@@ -45,7 +40,6 @@ npm run dev
 
 ## 📚 Learn More
 
-- [WhitegloveAI](https://whitegloveai.com)
 - [Tavus Developer Documentation](https://docs.tavus.io/)
 - [Tavus API Reference](https://docs.tavus.io/api-reference/)
 - [Tavus Platform](https://platform.tavus.io/)
@@ -53,4 +47,5 @@ npm run dev
 
 ## Powered By
 
-This application is powered by WhitegloveAI Lab technology and utilizes the Tavus Conversational Video Interface for avatar creation and management.
+This application is powered by Level-field technology and utilizes the Tavus Conversational Video Interface for avatar creation and management.
+# cvi-video-demo
