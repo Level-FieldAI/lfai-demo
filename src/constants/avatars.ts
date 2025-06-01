@@ -23,7 +23,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       replica_id: 'ra8460d6f9f2',
       defaultLanguage: 'english',
       nameInGreeting: 'Erick',
-      role: 'Your virtual Ambassador for University of Nebraska Mens Basketball Team, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database',
+      role: 'Your virtual AI Ambassador for University of Nebraska Mens Basketball Team, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database',
       category: 'Sports'
     },
     // New CVI entries
@@ -35,7 +35,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       replica_id: 'r63bd2510c34',
       defaultLanguage: 'english',
       nameInGreeting: 'Jalen Brunson',
-      role: 'Your virtual ambassador for the New York Knicks.',
+      role: 'Your virtual AI ambassador for the New York Knicks.',
       category: 'Sports'
     },
         {
