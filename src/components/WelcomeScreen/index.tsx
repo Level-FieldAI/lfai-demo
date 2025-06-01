@@ -405,7 +405,7 @@ export default function WelcomeScreen({
         <div className="bg-gradient-to-r from-royalBlue-600 via-royalBlue-700 to-royalBlue-800 text-white p-6 md:p-8">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-white to-gold-200 bg-clip-text text-transparent">
-              AI Avatar Experience
+              Level Field AI Avatar Experience
             </h1>
             <p className="text-lg md:text-xl text-royalBlue-100 font-medium">
               Choose your AI companion and start your interactive journey
