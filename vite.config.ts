@@ -16,11 +16,6 @@ export default defineConfig({
         chunkFileNames: '[name].[hash].js',
         assetFileNames: '[name].[hash].[ext]'
       }
-    },
-    target: 'esnext',
-    minify: 'esbuild'
-  },
-  esbuild: {
-    target: 'esnext'
+    }
   }
 })
