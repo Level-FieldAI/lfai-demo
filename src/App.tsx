@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { DailyProvider } from '@daily-co/daily-react'
-import { WelcomeScreen } from '@/components/WelcomeScreen'
+import WelcomeScreen from '@/components/WelcomeScreen'
 import { HairCheckScreen } from '@/components/HairCheckScreen'
 import { CallScreen } from '@/components/CallScreen'
 import { createConversation, endConversation } from '@/api'
