@@ -9,7 +9,6 @@ export const TestVideoSystem: React.FC = () => {
     isPreloading,
     preloadProgress,
     getVideoState,
-    retryVideo,
     getOverallStats
   } = useVideoManager(VIDEO_LIST, {
     preloadVideos: true,
