@@ -43,7 +43,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       name: 'Ghanacation com Virtual Tour',
       description: 'Virtual tour guide for Ghanacation.com',
       persona_id: 'p1ca48c757b5',
-      replica_id: 'ra8460d6f9f2',
+      replica_id: 'r0e739516da9',
       defaultLanguage: 'english',
       nameInGreeting: 'Ghanacation Guide',
       role: 'Your virtual tour guide for Ghanacation.com.',
