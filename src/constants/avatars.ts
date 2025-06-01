@@ -17,7 +17,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
   Sports: [
     {
       id: 'nebraska-basketball',
-      name: 'Erick - Nebraska Basketball Avatar',
+      name: 'Nebraska Basketball Avatar',
       description: 'Interactive avatar for University of Nebraska Basketball',
       persona_id: 'p457dff3ae3c',
       replica_id: 'ra8460d6f9f2',
@@ -56,7 +56,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
     // New CVI entry
     {
       id: 'fields-frisco-conversational',
-      name: 'Fields Frisco Conversational',
+      name: 'Fields Frisco Community',
       description: 'Conversational avatar for Fields Frisco community',
       persona_id: 'p19f29670176',
       replica_id: 'r0e739516da9',
@@ -70,7 +70,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
     
     {
       id: 'St. Kitts Tourguide',
-      name: 'Alexander - St. Kitts and Nevis Tour Guide Avatar',
+      name: 'St. Kitts and Nevis Tour Guide',
       description: 'Interactive avatar for St. Kitts',
       persona_id: 'pca68e2ee647',
       replica_id: 'r0e739516da9',
@@ -83,7 +83,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
     
     {
       id: 'finely-ai-financial-foundation',
-      name: 'Finely AI Financial Foundation',
+      name: 'NIL AI Financial Foundation',
       description: 'AI-powered financial foundation assistant',
       persona_id: 'pcae273144bc',
       replica_id: 'r63bd2510c34',
