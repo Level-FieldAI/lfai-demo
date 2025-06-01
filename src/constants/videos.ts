@@ -1,15 +1,22 @@
 import { VideoMetadata } from '@/lib/videoService';
 
-// Primary video hosting configuration
+// Cloudflare R2 video hosting configuration
 const VIDEO_CONFIG = {
   // Primary CDN (Cloudflare R2)
-  primaryBaseUrl: 'https://level-field.ai/lfai-video-demo',
+  primaryBaseUrl: 'https://313333285e943bbbd67e79b824551b47.r2.cloudflarestorage.com/lfai-video-demo',
   
-  // Fallback CDN (you can add additional CDNs here)
+  // Fallback CDN (backup R2 bucket or other CDN)
   fallbackBaseUrl: 'https://backup-cdn.example.com/videos', // Replace with actual backup CDN
   
-  // Thumbnail base URL
-  thumbnailBaseUrl: 'https://level-field.ai/lfai-video-demo/thumbnails',
+  // Thumbnail base URL (can be same R2 bucket with different folder)
+  thumbnailBaseUrl: 'https://313333285e943bbbd67e79b824551b47.r2.cloudflarestorage.com/lfai-video-demo/thumbnails',
+  
+  // R2 bucket configuration
+  r2: {
+    accountId: '313333285e943bbbd67e79b824551b47',
+    bucketName: 'lfai-video-demo',
+    endpoint: 'https://313333285e943bbbd67e79b824551b47.r2.cloudflarestorage.com'
+  }
 };
 
 // Enhanced video list with metadata and fallbacks

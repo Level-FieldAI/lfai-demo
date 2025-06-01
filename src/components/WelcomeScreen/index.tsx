@@ -6,6 +6,8 @@ import { SUPPORTED_LANGUAGES } from '@/constants/languages';
 import { AVATAR_CATEGORIES, AvatarUseCase } from '@/constants/avatars';
 import { VIDEO_LIST } from '@/constants/videos';
 import { VideoPlayer } from '@/components/VideoPlayer';
+import { VideoManager } from '@/components/VideoManager';
+import { R2SetupGuide } from '@/components/R2SetupGuide';
 import { useVideoManager } from '@/hooks/useVideoManager';
 import { cn } from '@/lib/utils';
 
@@ -231,7 +233,7 @@ export default function WelcomeScreen({
   onLanguageSelect,
   onStart
 }: WelcomeScreenProps) {
-  const [activeTab, setActiveTab] = useState<'avatar' | 'privacy' | 'video'>('avatar');
+  const [activeTab, setActiveTab] = useState<'avatar' | 'privacy' | 'video' | 'manage' | 'setup'>('avatar');
   
   // Initialize video manager
   const {
@@ -293,7 +295,9 @@ export default function WelcomeScreen({
             {[
               { id: 'avatar', label: 'Choose Avatar', icon: '🤖' },
               { id: 'privacy', label: 'Privacy & Security', icon: '🔒' },
-              { id: 'video', label: 'Video Demos', icon: '🎬' }
+              { id: 'video', label: 'Video Demos', icon: '🎬' },
+              { id: 'manage', label: 'Video Manager', icon: '📁' },
+              { id: 'setup', label: 'R2 Setup', icon: '⚙️' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -560,6 +564,30 @@ export default function WelcomeScreen({
                   Videos are hosted externally and may take a moment to load
                 </p>
               </div>
+            </div>
+          )}
+
+          {activeTab === 'manage' && (
+            <div className="space-y-6">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-royalBlue-800 mb-4 bg-gradient-to-r from-royalBlue-600 to-royalBlue-800 bg-clip-text text-transparent">
+                  Video Management
+                </h3>
+                <p className="text-lg text-gray-600 mb-2">
+                  Manage your R2-hosted video content
+                </p>
+                <p className="text-sm text-gray-500">
+                  Upload, organize, and configure your AI avatar videos
+                </p>
+              </div>
+              
+              <VideoManager />
+            </div>
+          )}
+
+          {activeTab === 'setup' && (
+            <div className="space-y-6">
+              <R2SetupGuide />
             </div>
           )}
         </div>

@@ -141,6 +141,8 @@ export class VideoService {
     width?: number;
     height?: number;
   }): string {
+    // For R2 URLs, we can add query parameters for optimization
+    // Note: These parameters would need to be handled by your R2 setup or a transform service
     const url = new URL(baseUrl);
     
     if (options?.quality && options.quality !== 'auto') {
@@ -160,6 +162,27 @@ export class VideoService {
     }
 
     return url.toString();
+  }
+
+  /**
+   * Check if URL is a Cloudflare R2 URL
+   */
+  isR2Url(url: string): boolean {
+    return url.includes('.r2.cloudflarestorage.com');
+  }
+
+  /**
+   * Generate R2 CDN URL for better performance
+   */
+  getR2CdnUrl(r2Url: string, customDomain?: string): string {
+    if (customDomain) {
+      // If you have a custom domain configured for R2
+      const path = r2Url.split('/').slice(4).join('/'); // Remove protocol and domain
+      return `https://${customDomain}/${path}`;
+    }
+    
+    // Return original R2 URL
+    return r2Url;
   }
 
   /**
