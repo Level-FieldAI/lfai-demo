@@ -26,6 +26,24 @@ const VIDEO_LIST = [
   }
 ];
 
+// Helper function to get emoji for avatar based on category and name
+const getAvatarEmoji = (avatar: AvatarUseCase): string => {
+  if (avatar.category === 'Sports') {
+    return '🏀'; // Basketball for sports
+  } else if (avatar.category === 'Real Estate') {
+    return '🏠'; // House for real estate
+  } else if (avatar.category === 'Concierge') {
+    if (avatar.name.toLowerCase().includes('tour')) {
+      return '🗺️'; // Map for tour guides
+    } else if (avatar.name.toLowerCase().includes('financial')) {
+      return '💰'; // Money for financial
+    } else {
+      return '🎩'; // Top hat for concierge
+    }
+  }
+  return '👤'; // Default person emoji
+};
+
 const VideoPlayer = ({ video, index }: { video: typeof VIDEO_LIST[0], index: number }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -264,7 +282,7 @@ const AvatarCarousel = ({ avatars, selectedAvatar, onSelect }: {
                     : 'border-royalBlue-200 bg-white hover:border-royalBlue-300'
                 )}
               >
-                <span className="text-2xl mb-1" aria-hidden="true">{avatar.emoji}</span>
+                <span className="text-2xl mb-1" aria-hidden="true">{getAvatarEmoji(avatar)}</span>
                 <span className="text-xs font-medium text-royalBlue-800 leading-tight">
                   {avatar.name}
                 </span>
@@ -331,7 +349,7 @@ const AvatarCarousel = ({ avatars, selectedAvatar, onSelect }: {
                     : 'border-royalBlue-200 bg-white hover:border-royalBlue-300'
                 )}
               >
-                <span className="text-4xl mb-2" aria-hidden="true">{avatar.emoji}</span>
+                <span className="text-4xl mb-2" aria-hidden="true">{getAvatarEmoji(avatar)}</span>
                 <span className="text-sm font-medium text-royalBlue-800">
                   {avatar.name}
                 </span>
@@ -349,7 +367,7 @@ interface WelcomeScreenProps {
   onAvatarSelect: (avatar: AvatarUseCase) => void;
   selectedLanguage: string;
   onLanguageSelect: (language: string) => void;
-  onStart: () => void;
+  onStart: (params: { language: string; avatarUseCase: AvatarUseCase }) => void;
 }
 
 export default function WelcomeScreen({
@@ -432,7 +450,7 @@ export default function WelcomeScreen({
                 </header>
                 
                 <AvatarCarousel
-                  avatars={AVATAR_CATEGORIES.flatMap(category => category.avatars)}
+                  avatars={Object.values(AVATAR_CATEGORIES).flat()}
                   selectedAvatar={selectedAvatar}
                   onSelect={onAvatarSelect}
                 />
@@ -452,10 +470,10 @@ export default function WelcomeScreen({
                     </SelectTrigger>
                     <SelectContent>
                       {SUPPORTED_LANGUAGES.map((lang) => (
-                        <SelectItem key={lang.code} value={lang.code} className="text-lg py-3">
+                        <SelectItem key={lang.value} value={lang.value} className="text-lg py-3">
                           <span className="flex items-center gap-3">
                             <span className="text-xl">{lang.flag}</span>
-                            <span>{lang.name}</span>
+                            <span>{lang.label}</span>
                           </span>
                         </SelectItem>
                       ))}
@@ -466,7 +484,7 @@ export default function WelcomeScreen({
 
               <div className="text-center">
                 <Button
-                  onClick={onStart}
+                  onClick={() => onStart({ language: selectedLanguage, avatarUseCase: selectedAvatar })}
                   size="lg"
                   className="bg-gradient-to-r from-royalBlue-600 to-royalBlue-700 hover:from-royalBlue-700 hover:to-royalBlue-800 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-gold-300 text-lg"
                 >

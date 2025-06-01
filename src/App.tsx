@@ -8,14 +8,15 @@ import { IConversation } from '@/types'
 import { useToast } from "@/hooks/use-toast"
 import { cn } from '@/lib/utils'
 import { AvatarUseCase, DEFAULT_AVATAR } from '@/constants/avatars'
+import { DEFAULT_LANGUAGE } from '@/constants/languages'
 
 function App() {
   const { toast } = useToast()
   const [screen, setScreen] = useState<'welcome' | 'hairCheck' | 'call'>('welcome')
   const [conversation, setConversation] = useState<IConversation | null>(null)
-  const [loading, setLoading] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [currentAvatar, setCurrentAvatar] = useState<AvatarUseCase>(DEFAULT_AVATAR)
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(DEFAULT_LANGUAGE.value)
 
   // Detect if device is mobile
   useEffect(() => {
@@ -41,7 +42,8 @@ function App() {
 
   const handleStart = async ({ language, avatarUseCase }: { language: string; avatarUseCase: AvatarUseCase }) => {
     try {
-      setLoading(true)
+
+
       setCurrentAvatar(avatarUseCase)
       
       let conversationData;
@@ -60,8 +62,8 @@ function App() {
         title: "Connection Error",
         description: `Could not create conversation: ${errorMessage}`,
       })
-    } finally {
-      setLoading(false)
+
+
     }
   }
 
@@ -84,7 +86,15 @@ function App() {
   return (
     <main className="flex flex-col min-h-screen">
       <DailyProvider>
-        {screen === 'welcome' && <WelcomeScreen onStart={handleStart} loading={loading} />}
+        {screen === 'welcome' && (
+          <WelcomeScreen 
+            selectedAvatar={currentAvatar}
+            onAvatarSelect={setCurrentAvatar}
+            selectedLanguage={selectedLanguage}
+            onLanguageSelect={setSelectedLanguage}
+            onStart={handleStart}
+          />
+        )}
         
         {screen === 'hairCheck' && (
           <div className="flex flex-col h-screen">
