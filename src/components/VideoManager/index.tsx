@@ -213,7 +213,7 @@ export const VideoManager: React.FC<VideoManagerProps> = ({ className }) => {
           </div>
         ) : (
           <div className="divide-y divide-gray-200">
-            {videos.map((video, index) => (
+            {videos.map((video) => (
               <div key={video.key} className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
