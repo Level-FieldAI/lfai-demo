@@ -508,6 +508,42 @@ export default function WelcomeScreen({
                 </div>
               )}
               
+              {/* Debug section for development */}
+              {process.env.NODE_ENV === 'development' && (
+                <div className="w-full max-w-4xl bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <h4 className="text-lg font-semibold text-yellow-800 mb-2">Debug Tools</h4>
+                  <div className="flex gap-2 flex-wrap">
+                    <button
+                      onClick={async () => {
+                        console.log('Testing all video URLs...');
+                        const { videoService } = await import('@/lib/videoService');
+                        const results = await videoService.testAllVideoUrls(VIDEO_LIST);
+                        console.table(results.map(r => ({
+                          title: r.video.title,
+                          primaryUrl: r.video.url,
+                          primaryStatus: r.primaryStatus.success ? 'OK' : r.primaryStatus.error,
+                          fallbackUrl: r.video.fallbackUrl || 'None',
+                          fallbackStatus: r.fallbackStatus ? (r.fallbackStatus.success ? 'OK' : r.fallbackStatus.error) : 'N/A'
+                        })));
+                        alert('Video URL test results logged to console. Check the browser console for details.');
+                      }}
+                      className="px-3 py-1 text-sm bg-yellow-200 hover:bg-yellow-300 text-yellow-800 rounded"
+                    >
+                      Test All Video URLs
+                    </button>
+                    <button
+                      onClick={() => {
+                        console.log('Current video configuration:', VIDEO_LIST);
+                        alert('Video configuration logged to console.');
+                      }}
+                      className="px-3 py-1 text-sm bg-blue-200 hover:bg-blue-300 text-blue-800 rounded"
+                    >
+                      Log Video Config
+                    </button>
+                  </div>
+                </div>
+              )}
+              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
                 {VIDEO_LIST.map((video, index) => (
                   <VideoPlayer 

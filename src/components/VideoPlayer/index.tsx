@@ -111,15 +111,22 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     loadVideo();
   };
 
-  const handleDownload = () => {
-    if (loadResult?.url) {
-      const link = document.createElement('a');
-      link.href = loadResult.url;
-      link.download = `${video.title}.mp4`;
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  const handleDownload = async () => {
+    if (!loadResult?.url) {
+      console.error('No video URL available for download');      alert('Download failed: No video URL available. Please try refreshing the page.');      return;
+    }
+
+    try {
+      const result = await videoService.downloadVideo(video, loadResult.url);
+      
+      if (!result.success) {
+        console.error('Download failed:', result.error);
+        alert(`Download failed: ${result.error}`);
+      }
+      
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('Download failed: An unexpected error occurred. Please try again.');
     }
   };
 
@@ -272,8 +279,26 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               </button>
             )}
           </div>
-          
-          {hasError && showRetryButton && (
+                      
+            {/* Debug info in development */}
+            {process.env.NODE_ENV === 'development' && (
+              <button
+                onClick={() => {
+                  console.log('Video Debug Info:', {
+                    video,
+                    loadResult,
+                    hasError,
+                    isLoading,
+                    retryCount
+                  });
+                  alert(`Debug Info logged to console. URL: ${loadResult?.url || 'No URL'}`);
+                }}
+                className="flex items-center gap-1 px-2 py-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-md transition-colors"
+                title="Debug video info"
+              >
+                🐛
+              </button>
+            )}          {hasError && showRetryButton && (
             <button
               onClick={handleRetry}
               className="flex items-center gap-1 px-3 py-1 text-xs bg-royalBlue-100 hover:bg-royalBlue-200 text-royalBlue-700 rounded-md transition-colors"

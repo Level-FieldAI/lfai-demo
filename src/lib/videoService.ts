@@ -30,6 +30,46 @@ export class VideoService {
   }
 
   /**
+   * Validate and normalize video URL
+   */
+  validateVideoUrl(url: string): { isValid: boolean; normalizedUrl?: string; error?: string } {
+    try {
+      const urlObj = new URL(url);
+      
+      // Check if it's a valid HTTP/HTTPS URL
+      if (!['http:', 'https:'].includes(urlObj.protocol)) {
+        return {
+          isValid: false,
+          error: 'URL must use HTTP or HTTPS protocol'
+        };
+      }
+      
+      // Check if it looks like a video file
+      const pathname = urlObj.pathname.toLowerCase();
+      const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi'];
+      const hasVideoExtension = videoExtensions.some(ext => pathname.endsWith(ext));
+      
+      if (!hasVideoExtension) {
+        console.warn('URL does not appear to be a video file:', url);
+      }
+      
+      // Normalize URL (remove unnecessary query params, etc.)
+      const normalizedUrl = urlObj.toString();
+      
+      return {
+        isValid: true,
+        normalizedUrl
+      };
+      
+    } catch (error) {
+      return {
+        isValid: false,
+        error: 'Invalid URL format'
+      };
+    }
+  }
+
+  /**
    * Check if a video URL is accessible
    */
   async checkVideoAvailability(url: string): Promise<VideoLoadResult> {
@@ -46,24 +86,61 @@ export class VideoService {
       const response = await fetch(url, { 
         method: 'HEAD',
         mode: 'cors',
-        cache: 'no-cache'
+        cache: 'no-cache',
+        headers: {
+          'Accept': 'video/*,*/*;q=0.9'
+        }
       });
+
+      let errorMessage: string | undefined;
+      if (!response.ok) {
+        switch (response.status) {
+          case 404:
+            errorMessage = 'Video file not found (404). The video may have been moved or deleted.';
+            break;
+          case 403:
+            errorMessage = 'Access denied (403). The video may be private or require authentication.';
+            break;
+          case 500:
+            errorMessage = 'Server error (500). The video hosting service is experiencing issues.';
+            break;
+          case 503:
+            errorMessage = 'Service unavailable (503). The video hosting service is temporarily down.';
+            break;
+          default:
+            errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+        }
+      }
 
       const result: VideoLoadResult = {
         success: response.ok,
         url: response.ok ? url : undefined,
-        error: response.ok ? undefined : `HTTP ${response.status}: ${response.statusText}`
+        error: errorMessage
       };
 
-      // Cache the result
+      // Cache the result (shorter cache for errors)
       (result as any).timestamp = Date.now();
       this.cache.set(cacheKey, result);
 
       return result;
     } catch (error) {
+      let errorMessage = 'Network error';
+      
+      if (error instanceof TypeError) {
+        if (error.message.includes('Failed to fetch')) {
+          errorMessage = 'Network connection failed. This could be due to CORS restrictions, network issues, or the server being unreachable.';
+        } else if (error.message.includes('CORS')) {
+          errorMessage = 'CORS error: The video server does not allow cross-origin requests from this domain.';
+        } else {
+          errorMessage = `Network error: ${error.message}`;
+        }
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       const result: VideoLoadResult = {
         success: false,
-        error: error instanceof Error ? error.message : 'Network error',
+        error: errorMessage,
         retryAfter: this.calculateRetryDelay(url)
       };
 
@@ -78,7 +155,16 @@ export class VideoService {
    * Load video with retry logic and fallbacks
    */
   async loadVideo(video: VideoMetadata): Promise<VideoLoadResult> {
-    const primaryResult = await this.checkVideoAvailability(video.url);
+    // Validate primary URL
+    const urlValidation = this.validateVideoUrl(video.url);
+    if (!urlValidation.isValid) {
+      return {
+        success: false,
+        error: `Invalid video URL: ${urlValidation.error}`
+      };
+    }
+    
+    const primaryResult = await this.checkVideoAvailability(urlValidation.normalizedUrl || video.url);
     
     if (primaryResult.success) {
       this.retryAttempts.delete(video.url);
@@ -87,12 +173,15 @@ export class VideoService {
 
     // Try fallback URL if available
     if (video.fallbackUrl) {
-      const fallbackResult = await this.checkVideoAvailability(video.fallbackUrl);
-      if (fallbackResult.success) {
-        return {
-          ...fallbackResult,
-          url: video.fallbackUrl
-        };
+      const fallbackValidation = this.validateVideoUrl(video.fallbackUrl);
+      if (fallbackValidation.isValid) {
+        const fallbackResult = await this.checkVideoAvailability(fallbackValidation.normalizedUrl || video.fallbackUrl);
+        if (fallbackResult.success) {
+          return {
+            ...fallbackResult,
+            url: fallbackValidation.normalizedUrl || video.fallbackUrl
+          };
+        }
       }
     }
 
@@ -103,7 +192,7 @@ export class VideoService {
       
       return {
         success: false,
-        error: `Video temporarily unavailable (attempt ${attempts + 1}/${this.maxRetries})`,
+        error: `Video temporarily unavailable (attempt ${attempts + 1}/${this.maxRetries}). ${primaryResult.error || ''}`,
         retryAfter: this.calculateRetryDelay(video.url)
       };
     }
@@ -111,9 +200,77 @@ export class VideoService {
     // Max retries exceeded
     return {
       success: false,
-      error: 'Video is currently unavailable. Please try again later.',
+      error: `Video is currently unavailable after ${this.maxRetries} attempts. ${primaryResult.error || 'Please try again later.'}`,
       retryAfter: 300 // 5 minutes
     };
+  }
+
+  /**
+   * Download video with proper error handling
+   */
+  async downloadVideo(video: VideoMetadata, url: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      // First verify the URL is accessible
+      const availability = await this.checkVideoAvailability(url);
+      
+      if (!availability.success) {
+        return {
+          success: false,
+          error: availability.error || 'Video is not accessible for download'
+        };
+      }
+
+      // Try multiple download approaches
+      return await this.attemptDownload(video, url);
+      
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Download failed due to unknown error'
+      };
+    }
+  }
+
+  /**
+   * Attempt download with multiple fallback methods
+   */
+  private async attemptDownload(video: VideoMetadata, url: string): Promise<{ success: boolean; error?: string }> {
+    // Method 1: Standard download link
+    try {
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${video.title}.mp4`;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      
+      // Add to DOM, click, and remove
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      return { success: true };
+      
+    } catch (error) {
+      console.warn('Standard download failed, trying alternative method:', error);
+    }
+
+    // Method 2: Open in new window (fallback)
+    try {
+      const newWindow = window.open(url, '_blank');
+      if (newWindow) {
+        return { success: true };
+      } else {
+        return {
+          success: false,
+          error: 'Download blocked by popup blocker. Please allow popups and try again.'
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: 'All download methods failed. Please try right-clicking the video and selecting "Save video as..."'
+      };
+    }
   }
 
   /**
@@ -129,6 +286,34 @@ export class VideoService {
     });
 
     await Promise.allSettled(promises);
+    return results;
+  }
+
+  /**
+   * Test all video URLs and return detailed status
+   */
+  async testAllVideoUrls(videos: VideoMetadata[]): Promise<Array<{
+    video: VideoMetadata;
+    primaryStatus: VideoLoadResult;
+    fallbackStatus?: VideoLoadResult;
+  }>> {
+    const results = [];
+    
+    for (const video of videos) {
+      const primaryStatus = await this.checkVideoAvailability(video.url);
+      let fallbackStatus: VideoLoadResult | undefined;
+      
+      if (video.fallbackUrl) {
+        fallbackStatus = await this.checkVideoAvailability(video.fallbackUrl);
+      }
+      
+      results.push({
+        video,
+        primaryStatus,
+        fallbackStatus
+      });
+    }
+    
     return results;
   }
 
