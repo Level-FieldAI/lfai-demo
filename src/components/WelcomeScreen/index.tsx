@@ -1,30 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '../ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RefreshCw, AlertTriangle } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '@/constants/languages';
 import { AVATAR_CATEGORIES, AvatarUseCase } from '@/constants/avatars';
+import { VIDEO_LIST } from '@/constants/videos';
+import { VideoPlayer } from '@/components/VideoPlayer';
+import { useVideoManager } from '@/hooks/useVideoManager';
 import { cn } from '@/lib/utils';
-
-// Video constants
-const VIDEO_BASE_URL = 'https://level-field.ai/lfai-video-demo';
-const VIDEO_LIST = [
-  {
-    title: 'Bruin Recruiting Video',
-    url: `${VIDEO_BASE_URL}/Bruin_Video.mp4`,
-    description: 'AI avatar demonstration for recruiting and HR applications'
-  },
-  {
-    title: 'Cerebro Sports Video',
-    url: `${VIDEO_BASE_URL}/Cerebro%20Demo.mp4`, // URL encoded space
-    description: 'Sports analytics and coaching with AI avatars'
-  },
-  {
-    title: 'Gregory CPA Video',
-    url: `${VIDEO_BASE_URL}/gregory_cpa.mp4`,
-    description: 'Professional services and consultation AI avatar demo'
-  }
-];
 
 // Helper function to get emoji for avatar based on category and name
 const getAvatarEmoji = (avatar: AvatarUseCase): string => {
@@ -42,135 +25,6 @@ const getAvatarEmoji = (avatar: AvatarUseCase): string => {
     }
   }
   return '👤'; // Default person emoji
-};
-
-const VideoPlayer = ({ video, index }: { video: typeof VIDEO_LIST[0], index: number }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const handleLoadStart = () => {
-    setIsLoading(true);
-    setHasError(false);
-  };
-
-  const handleCanPlay = () => {
-    setIsLoading(false);
-  };
-
-  const handleError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-    console.error(`Error loading video: ${video.url}`, e);
-    setIsLoading(false);
-    setHasError(true);
-  };
-
-  const handlePlay = () => {
-    setIsPlaying(true);
-  };
-
-  const handlePause = () => {
-    setIsPlaying(false);
-  };
-
-  return (
-    <div className="flex flex-col items-center bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-royalBlue-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-      <div className="relative w-full aspect-video mb-4 rounded-xl overflow-hidden shadow-md bg-gradient-to-br from-royalBlue-100 to-gold-100">
-        {hasError ? (
-          // Error state
-          <div className="flex items-center justify-center h-full bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600">
-            <div className="text-center p-4">
-              <div className="text-4xl mb-2">📹</div>
-              <p className="font-medium mb-2">Video temporarily unavailable</p>
-              <p className="text-sm text-gray-500 mb-3">This demo video is currently being updated</p>
-              <button 
-                onClick={() => {
-                  setHasError(false);
-                  setIsLoading(true);
-                  // Try to reload the video
-                  const video = document.querySelector(`video[data-video-index="${index}"]`) as HTMLVideoElement;
-                  if (video) {
-                    video.load();
-                  }
-                }}
-                className="px-4 py-2 bg-royalBlue-600 text-white rounded-lg hover:bg-royalBlue-700 transition-colors text-sm"
-              >
-                Try Again
-              </button>
-            </div>
-          </div>
-        ) : (
-          <>
-            <video
-              data-video-index={index}
-              controls
-              preload="metadata"
-              className="w-full h-full object-cover"
-              poster={`https://placehold.co/400x225/4588FF/ffffff?text=AI+Avatar+Demo+${index + 1}`}
-              onLoadStart={handleLoadStart}
-              onCanPlay={handleCanPlay}
-              onError={handleError}
-              onPlay={handlePlay}
-              onPause={handlePause}
-              crossOrigin="anonymous"
-            >
-              <source src={video.url} type="video/mp4" />
-              <div className="flex items-center justify-center h-full bg-gradient-to-br from-royalBlue-100 to-gold-100 text-royalBlue-700">
-                <div className="text-center p-4">
-                  <p className="font-medium">Your browser does not support video playback.</p>
-                  <a 
-                    href={video.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-royalBlue-600 hover:text-royalBlue-800 underline mt-2 inline-block"
-                  >
-                    Download video instead
-                  </a>
-                </div>
-              </div>
-            </video>
-            
-            {/* Loading overlay */}
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-royalBlue-100/90 to-gold-100/90 backdrop-blur-sm">
-                <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-royalBlue-600 mb-3"></div>
-                  <p className="text-royalBlue-700 font-medium">Loading video...</p>
-                </div>
-              </div>
-            )}
-            
-            {/* Play button overlay */}
-            {!isLoading && !isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm transition-opacity duration-300">
-                  <svg className="w-8 h-8 text-royalBlue-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-      
-      <div className="text-center">
-        <h4 className="text-lg font-bold text-royalBlue-800 mb-2">{video.title}</h4>
-        <p className="text-sm text-gray-600 mb-3">
-          {video.description}
-        </p>
-        
-        {/* Video info badges */}
-        <div className="flex flex-wrap gap-2 justify-center">
-          <span className="px-3 py-1 bg-gradient-to-r from-royalBlue-100 to-royalBlue-200 text-royalBlue-700 text-xs font-medium rounded-full">
-            AI Avatar
-          </span>
-          <span className="px-3 py-1 bg-gradient-to-r from-gold-100 to-gold-200 text-gold-700 text-xs font-medium rounded-full">
-            Demo Video
-          </span>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 const AvatarCarousel = ({ avatars, selectedAvatar, onSelect }: {
@@ -378,6 +232,26 @@ export default function WelcomeScreen({
   onStart
 }: WelcomeScreenProps) {
   const [activeTab, setActiveTab] = useState<'avatar' | 'privacy' | 'video'>('avatar');
+  
+  // Initialize video manager
+  const {
+    isPreloading,
+    preloadProgress,
+    getVideoState,
+
+
+    retryAllFailedVideos,
+    clearAllCaches,
+    getOverallStats
+  } = useVideoManager(VIDEO_LIST, {
+    preloadVideos: true,
+    maxRetries: 3,
+    onVideoStateChange: (videoUrl, state) => {
+      console.log(`Video ${videoUrl} state changed:`, state);
+    }
+  });
+
+  const stats = getOverallStats();
 
   const privacyFeatures = [
     {
@@ -543,23 +417,100 @@ export default function WelcomeScreen({
                 </p>
               </div>
               
+              {/* Video loading status */}
+              {isPreloading && (
+                <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-royalBlue-200 shadow-lg">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-royalBlue-600 mx-auto mb-3"></div>
+                    <p className="text-royalBlue-700 font-medium mb-2">Loading videos...</p>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-royalBlue-500 to-gold-500 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${preloadProgress}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-2">{Math.round(preloadProgress)}% complete</p>
+                  </div>
+                </div>
+              )}
+              
+              {/* Video management controls */}
+              {!isPreloading && stats.errors > 0 && (
+                <div className="w-full max-w-md bg-red-50 border border-red-200 rounded-xl p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <AlertTriangle className="w-5 h-5 text-red-600" />
+                      <span className="text-red-700 font-medium">
+                        {stats.errors} video{stats.errors > 1 ? 's' : ''} failed to load
+                      </span>
+                    </div>
+                    <Button
+                      onClick={retryAllFailedVideos}
+                      size="sm"
+                      variant="outline"
+                      className="border-red-300 text-red-700 hover:bg-red-50"
+                    >
+                      <RefreshCw className="w-4 h-4 mr-1" />
+                      Retry All
+                    </Button>
+                  </div>
+                </div>
+              )}
+              
               {/* Debug info for development */}
               {process.env.NODE_ENV === 'development' && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm w-full max-w-4xl">
                   <p className="font-medium text-yellow-800 mb-2">Debug Info (Development Only):</p>
-                  <ul className="text-yellow-700 space-y-1">
-                    {VIDEO_LIST.map((video, index) => (
-                      <li key={index} className="font-mono text-xs">
-                        {video.title}: {video.url}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="font-medium text-yellow-700 mb-1">Video Stats:</p>
+                      <ul className="text-yellow-700 space-y-1 text-xs">
+                        <li>Total: {stats.total}</li>
+                        <li>Loaded: {stats.successful}</li>
+                        <li>Loading: {stats.loading}</li>
+                        <li>Failed: {stats.errors}</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-medium text-yellow-700 mb-1">Video URLs:</p>
+                      <ul className="text-yellow-700 space-y-1">
+                        {VIDEO_LIST.map((video, index) => {
+                          const state = getVideoState(video.url);
+                          return (
+                            <li key={index} className="font-mono text-xs">
+                              <span className={cn(
+                                "inline-block w-2 h-2 rounded-full mr-2",
+                                state.loadResult?.success ? 'bg-green-500' :
+                                state.isLoading ? 'bg-yellow-500' :
+                                state.hasError ? 'bg-red-500' : 'bg-gray-500'
+                              )}></span>
+                              {video.title}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-yellow-200">
+                    <Button
+                      onClick={clearAllCaches}
+                      size="sm"
+                      variant="outline"
+                      className="border-yellow-300 text-yellow-700 hover:bg-yellow-50"
+                    >
+                      Clear All Caches
+                    </Button>
+                  </div>
                 </div>
               )}
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
                 {VIDEO_LIST.map((video, index) => (
-                  <VideoPlayer key={video.title} video={video} index={index} />
+                  <VideoPlayer 
+                    key={video.title} 
+                    video={video} 
+                    index={index}
+                  />
                 ))}
               </div>
               
