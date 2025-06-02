@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, AlertCircle, Clock, ExternalLink } from 'lucide-react';
-import { r2Storage } from '@/lib/r2Storage';
-import { VIDEO_LIST } from '@/constants/videos';
-import { cn } from '@/lib/utils';
+// This component has been removed as part of video system cleanup
 
 interface MigrationStatusProps {
   className?: string;
