@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '@/constants/languages';
 import { AVATAR_CATEGORIES, AvatarUseCase } from '@/constants/avatars';
 import { cn } from '@/lib/utils';
+import LFAILogo from '/LFAI Dark Logo.png';
 
 // Helper function to get emoji for avatar based on category and name
 const getAvatarEmoji = (avatar: AvatarUseCase): string => {
@@ -253,16 +254,22 @@ export default function WelcomeScreen({
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-3 md:p-6">
       <div className="w-full max-w-4xl bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-royalBlue-600 via-royalBlue-700 to-royalBlue-800 text-white p-6 md:p-8">
-          <div className="text-center">
+        <div className="bg-gradient-to-r from-royalBlue-600 via-royalBlue-700 to-royalBlue-800 text-white p-6 md:p-8 flex items-center justify-between">
+          <div className="w-24 md:w-36 lg:w-48">
+            <img 
+              src={LFAILogo} 
+              alt="Level-FieldAI Logo" 
+              className="max-w-full max-h-16 object-contain" 
+            />
+          </div>
+          <div className="text-center flex-grow">
             <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-white to-gold-200 bg-clip-text text-transparent">
               Level Field AI Avatar Experience
             </h1>
             <p className="text-lg md:text-xl text-royalBlue-100 font-medium">
               Choose your AI companion and start your interactive journey
             </p>
-          </div>
-        </div>
+          </div>          <div className="w-24 md:w-36 lg:w-48"></div>        </div>
 
         {/* Tab Navigation */}
         <div className="bg-gradient-to-r from-royalBlue-50 to-gold-50 border-b border-royalBlue-200">
