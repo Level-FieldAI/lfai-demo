@@ -5,7 +5,12 @@ import { cn } from '@/lib/utils';
 import { Video } from '../Video';
 import { Button } from '../ui/button';
 
-export const Call = () => {
+interface CallProps {
+  conversationId?: string;
+  onConversationStart?: (id: string) => void;
+}
+
+export const Call = ({ conversationId, onConversationStart }: CallProps = {}) => {
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
   const localSessionId = useLocalSessionId();
   const [mode, setMode] = useState<'full' | 'minimal'>('full');
@@ -28,6 +33,19 @@ export const Call = () => {
   const handleToggleMode = () => {
     setMode(prev => prev === 'full' ? 'minimal' : 'full');
   }
+  // Generate a conversation ID if one isn't provided
+  useEffect(() => {
+    if (!conversationId && onConversationStart) {
+      const generatedId = `call-${Date.now()}`;
+      onConversationStart(generatedId);
+    }
+  }, [conversationId, onConversationStart]);
+  // Simulate conversation start when remote participant joins
+  useEffect(() => {
+    if (remoteParticipantIds.length > 0 && conversationId && onConversationStart) {
+      onConversationStart(conversationId);
+    }
+  }, [remoteParticipantIds.length, conversationId, onConversationStart]);
 
   return <>
     <div className={cn("flex items-center justify-center w-full h-full", {

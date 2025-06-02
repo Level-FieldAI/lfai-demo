@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Call } from '@/components/Call';
 import { ConversationsPage } from '@/components/ConversationsPage';
 import { useConversationMonitor } from '@/hooks/useConversationMonitor';
@@ -8,13 +8,21 @@ import { toast } from '@/hooks/use-toast';
 
 interface CallWithConversationsProps {
   // Props that would be passed to the Call component
+  conversationId?: string;
   [key: string]: any;
 }
 
 export const CallWithConversations: React.FC<CallWithConversationsProps> = (props) => {
-  const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
+  const [currentConversationId, setCurrentConversationId] = useState<string | null>(props.conversationId || null);
   const [showConversations, setShowConversations] = useState(false);
   const [completedConversations, setCompletedConversations] = useState<IConversation[]>([]);
+  
+  // Update currentConversationId if props.conversationId changes
+  useEffect(() => {
+    if (props.conversationId) {
+      setCurrentConversationId(props.conversationId);
+    }
+  }, [props.conversationId]);
 
   // Monitor the current conversation
   const { isCompleted, hasError } = useConversationMonitor({
@@ -117,7 +125,11 @@ export const CallWithConversations: React.FC<CallWithConversationsProps> = (prop
       </div>
 
       <div className="p-6">
-        <Call {...props} />
+        <Call 
+          {...props} 
+          conversationId={currentConversationId || undefined}
+          onConversationStart={setCurrentConversationId}
+        />
       </div>
       
       {/* Show recent completed conversations as a sidebar or notification */}
