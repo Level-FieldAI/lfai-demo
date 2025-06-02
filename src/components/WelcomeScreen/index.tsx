@@ -269,7 +269,9 @@ export default function WelcomeScreen({
             <p className="text-lg md:text-xl text-royalBlue-100 font-medium">
               Choose your AI companion and start your interactive journey
             </p>
-          </div>          <div className="w-24 md:w-36 lg:w-48"></div>        </div>
+          </div>
+          <div className="w-24 md:w-36 lg:w-48"></div>
+        </div>
 
         {/* Tab Navigation */}
         <div className="bg-gradient-to-r from-royalBlue-50 to-gold-50 border-b border-royalBlue-200">
