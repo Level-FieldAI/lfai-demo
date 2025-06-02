@@ -24,4 +24,10 @@ export type IConversation = {
   replica_id: string | null;
   persona_id: string | null;
   created_at: string;
+  updated_at?: string;
+  ended_at?: string;
+  duration?: number;
+  participant_count?: number;
+  recording_url?: string;
+  properties?: Record<string, any>;
 };
