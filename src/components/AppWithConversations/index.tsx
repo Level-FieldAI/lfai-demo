@@ -124,11 +124,7 @@ function AppWithConversations() {
       "py-2 px-4": isMobile,
       "py-1 px-6": !isMobile,
     })}>
-      <img
-        src="/logo.png"
-        alt="Level-FieldAI Logo"
-        className="h-8 sm:h-10 object-contain"
-      />
+      
       
       <div className="flex items-center gap-2">
         {completedConversations.length > 0 && screen !== 'conversations' && (
@@ -156,7 +152,7 @@ function AppWithConversations() {
       "py-1": !isMobile,
     })}>
       <div className="flex justify-between items-center px-4">
-        <p>LFAI Lab Demo</p>
+        <p>Level-FieldAI Demo</p>
         
         {screen !== 'conversations' && (
           <Button 

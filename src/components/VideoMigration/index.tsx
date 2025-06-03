@@ -1,1 +1,0 @@
-// This component has been removed as part of video system cleanup

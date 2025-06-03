@@ -98,14 +98,7 @@ function App() {
         
         {screen === 'hairCheck' && (
           <div className="flex flex-col h-screen">
-            {/* Compact header */}
-            <header className="flex justify-center items-center py-2">
-              <img
-                src="/logo.png"
-                alt="Level-FieldAI Logo"
-                className="h-8 sm:h-10 object-contain"
-              />
-            </header>
+            
             
             {/* Main content area */}
             <div className="flex-grow">
@@ -120,7 +113,7 @@ function App() {
             
             {/* Minimal footer */}
             <footer className="py-2 text-center text-gray-600 text-xs sm:text-sm">
-              <p>LFAI Lab Demo</p>
+              <p>Level-FieldAI Demo</p>
             </footer>
           </div>
         )}
@@ -132,11 +125,7 @@ function App() {
               "py-2": isMobile,
               "py-1": !isMobile, // Even more compact on desktop to maximize video space
             })}>
-              <img
-                src="/logo.png"
-                alt="Level-FieldAI Logo"
-                className="h-8 sm:h-10 object-contain"
-              />
+              
             </header>
             
             {/* Main content area - maximized for video */}
@@ -157,7 +146,7 @@ function App() {
               "py-1": isMobile,
               "py-0.5": !isMobile, // Even more compact on desktop
             })}>
-              <p>LFAI Lab Demo</p>
+              <p>Level-FieldAI Demo</p>
             </footer>
           </div>
         )}
