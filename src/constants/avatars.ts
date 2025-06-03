@@ -38,17 +38,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       role: 'Your virtual AI ambassador, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database',
       category: 'Sports'
     },
-    {
-      id: 'finely-ai-financial-foundation',
-      name: 'NIL Financial Advisor for Student Athletes',
-      description: 'AI-powered financial foundation assistant',
-      persona_id: 'p52400f97f3e',
-      replica_id: 'r63bd2510c34',
-      defaultLanguage: 'english',
-      nameInGreeting: 'Brian',
-      role: 'Your AI assistant for financial foundation guidance. This chat is sponsored by Gregory CPA services, Empowering Families to Build Wealth and Legacy. What NIL financial question can I help you with today?',
-      category: 'Concierge'
-    },
+    
     {
       id: 'ghanacation-virtual-tour',
       name: 'Ghanacation com Virtual Tour',
