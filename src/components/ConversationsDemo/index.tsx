@@ -51,10 +51,10 @@ export const ConversationsDemo: React.FC = () => {
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            Tavus Conversations Demo
+             Level-FieldAI Conversations Demo
           </h1>
           <p className="text-gray-600 mb-6">
-            This demo shows how to retrieve and display Tavus conversations using the API.
+            This demo shows how to retrieve and display Level-FieldAI conversations using the API.
           </p>
           
           {/* Manual conversation fetch */}

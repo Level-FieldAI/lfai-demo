@@ -119,7 +119,7 @@ export const ConversationsPage: React.FC<ConversationsPageProps> = ({
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Tavus Conversations</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Level-FieldAI Conversations</h1>
         
         <div className="flex flex-wrap gap-4 items-center">
           <Button onClick={handleRefresh} disabled={loading}>
