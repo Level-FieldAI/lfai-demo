@@ -40,6 +40,7 @@ npm run dev
 
 ## 📚 Learn More
 
+- [Learn about Level-FieldAI](https://www.level-fieldai.com/)
 - [Tavus Developer Documentation](https://docs.tavus.io/)
 - [Tavus API Reference](https://docs.tavus.io/api-reference/)
 - [Tavus Platform](https://platform.tavus.io/)
