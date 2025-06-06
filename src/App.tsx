@@ -106,14 +106,14 @@ function App() {
             </div>
             
             {/* Avatar info */}
-            <div className="bg-gray-50 p-2 border-t border-gray-200">
-              <p className="text-center text-sm font-medium">{currentAvatar.name}</p>
-              <p className="text-center text-xs text-gray-600">{currentAvatar.description}</p>
+            <div className="bg-gradient-to-r from-sandyBeige-50 to-caribbeanTurquoise-50 p-2 border-t border-luxuryGold-200">
+              <p className="text-center text-sm font-medium text-oceanBlue-800">{currentAvatar.name}</p>
+              <p className="text-center text-xs text-oceanBlue-600">{currentAvatar.description}</p>
             </div>
             
             {/* Minimal footer */}
-            <footer className="py-2 text-center text-gray-600 text-xs sm:text-sm">
-              <p>Level-FieldAI Demo</p>
+            <footer className="py-2 text-center text-oceanBlue-600 text-xs sm:text-sm bg-gradient-to-r from-sandyBeige-50 to-caribbeanTurquoise-50">
+              <p>Four Seasons Anguilla AI Experience</p>
             </footer>
           </div>
         )}
@@ -134,19 +134,19 @@ function App() {
             </div>
             
             {/* Avatar info - very compact */}
-            <div className={cn("bg-gray-50 border-t border-gray-200", {
+            <div className={cn("bg-gradient-to-r from-sandyBeige-50 to-caribbeanTurquoise-50 border-t border-luxuryGold-200", {
               "py-1": isMobile,
               "py-0.5": !isMobile,
             })}>
-              <p className="text-center text-xs font-medium">{currentAvatar.name}</p>
+              <p className="text-center text-xs font-medium text-oceanBlue-800">{currentAvatar.name}</p>
             </div>
             
             {/* Minimal footer */}
-            <footer className={cn("text-center text-gray-600 text-xs sm:text-sm", {
+            <footer className={cn("text-center text-oceanBlue-600 text-xs sm:text-sm bg-gradient-to-r from-sandyBeige-50 to-caribbeanTurquoise-50", {
               "py-1": isMobile,
               "py-0.5": !isMobile, // Even more compact on desktop
             })}>
-              <p>Level-FieldAI Demo</p>
+              <p>Four Seasons Anguilla AI Experience</p>
             </footer>
           </div>
         )}

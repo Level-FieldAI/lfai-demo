@@ -1,217 +1,25 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '@/constants/languages';
 import { AVATAR_CATEGORIES, AvatarUseCase } from '@/constants/avatars';
 import { cn } from '@/lib/utils';
-import LFAILogo from '/LFAI Dark Logo.png';
 
 // Helper function to get emoji for avatar based on category and name
 const getAvatarEmoji = (avatar: AvatarUseCase): string => {
-  if (avatar.category === 'Sports') {
-    return '🏀'; // Basketball for sports
-  } else if (avatar.category === 'Real Estate') {
-    return '🏠'; // House for real estate
+  if (avatar.category === 'Resort Services') {
+    return '🏖️'; // Beach for resort services
+  } else if (avatar.category === 'Dining & Experiences') {
+    return '🍽️'; // Dining for culinary experiences
   } else if (avatar.category === 'Concierge') {
     if (avatar.name.toLowerCase().includes('tour')) {
       return '🗺️'; // Map for tour guides
-    } else if (avatar.name.toLowerCase().includes('financial')) {
-      return '💰'; // Money for financial
+    } else if (avatar.name.toLowerCase().includes('luxury')) {
+      return '💎'; // Diamond for luxury services
     } else {
-      return '🎩'; // Top hat for concierge
+      return '🌺'; // Tropical flower for concierge
     }
   }
-  return '👤'; // Default person emoji
-};
-
-const AvatarCarousel = ({ avatars, selectedAvatar, onSelect }: {
-  avatars: AvatarUseCase[];
-  selectedAvatar: AvatarUseCase;
-  onSelect: (avatar: AvatarUseCase) => void;
-}) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = 200;
-      const newScrollLeft = direction === 'left' 
-        ? scrollRef.current.scrollLeft - scrollAmount
-        : scrollRef.current.scrollLeft + scrollAmount;
-      
-      scrollRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const checkScrollPosition = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setShowLeftArrow(scrollLeft > 0);
-      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
-  useEffect(() => {
-    checkScrollPosition();
-    const scrollElement = scrollRef.current;
-    if (scrollElement) {
-      scrollElement.addEventListener('scroll', checkScrollPosition);
-      return () => scrollElement.removeEventListener('scroll', checkScrollPosition);
-    }
-  }, []);
-
-  return (
-    <div className="relative">
-      {/* Mobile layout */}
-      <div className="md:hidden">
-        <div className="flex items-center justify-between mb-4 px-4">
-          <p className="text-sm text-gray-600 font-medium">
-            Swipe or use arrows to browse
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll('left')}
-              disabled={!showLeftArrow}
-              className={cn(
-                "p-2 rounded-full bg-gradient-to-r from-royalBlue-500 to-royalBlue-600 text-white shadow-lg transition-all duration-300 border border-gold-300 touch-target",
-                showLeftArrow 
-                  ? "hover:shadow-xl hover:scale-105 opacity-100" 
-                  : "opacity-50 cursor-not-allowed"
-              )}
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              disabled={!showRightArrow}
-              className={cn(
-                "p-2 rounded-full bg-gradient-to-r from-royalBlue-500 to-royalBlue-600 text-white shadow-lg transition-all duration-300 border border-gold-300 touch-target",
-                showRightArrow 
-                  ? "hover:shadow-xl hover:scale-105 opacity-100" 
-                  : "opacity-50 cursor-not-allowed"
-              )}
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-        
-        <div className="relative">
-          <div
-            ref={scrollRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-4 px-4 py-4 snap-x snap-mandatory touch-scroll"
-            style={{ 
-              scrollbarWidth: 'none', 
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch' // Smooth scrolling on iOS
-            }}
-            onScroll={checkScrollPosition}
-          >
-            {avatars.map((avatar) => (
-              <div
-                key={avatar.id}
-                onClick={() => onSelect(avatar)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelect(avatar);
-                  }
-                }}
-                tabIndex={0}
-                role="button"
-                aria-pressed={selectedAvatar.id === avatar.id}
-                className={cn(
-                  'flex-shrink-0 w-24 h-24 rounded-2xl cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center text-center p-2 border-2 shadow-lg hover:shadow-xl snap-center touch-target',
-                  selectedAvatar.id === avatar.id
-                    ? 'border-gold-400 bg-gradient-to-br from-gold-50 to-royalBlue-50 shadow-gold-200'
-                    : 'border-royalBlue-200 bg-white hover:border-royalBlue-300'
-                )}
-              >
-                <span className="text-2xl mb-1" aria-hidden="true">{getAvatarEmoji(avatar)}</span>
-                <span className="text-xs font-medium text-royalBlue-800 leading-tight">
-                  {avatar.name}
-                </span>
-              </div>
-            ))}
-          </div>
-          
-          {/* Gradient fade indicators */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none" />
-        </div>
-      </div>
-
-      {/* Desktop layout */}
-      <div className="hidden md:block relative">
-        {showLeftArrow && (
-          <button
-            onClick={() => scroll('left')}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 p-3 rounded-full bg-gradient-to-r from-royalBlue-500 to-royalBlue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gold-300"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-        )}
-        
-        {showRightArrow && (
-          <button
-            onClick={() => scroll('right')}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 p-3 rounded-full bg-gradient-to-r from-royalBlue-500 to-royalBlue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gold-300"
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        )}
-        
-        <div className="relative">
-          <div
-            ref={scrollRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-6 px-16 py-6 snap-x snap-mandatory touch-scroll"
-            style={{ 
-              scrollbarWidth: 'none', 
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch'
-            }}
-            onScroll={checkScrollPosition}
-          >
-            {avatars.map((avatar) => (
-              <div
-                key={avatar.id}
-                onClick={() => onSelect(avatar)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelect(avatar);
-                  }
-                }}
-                tabIndex={0}
-                role="button"
-                aria-pressed={selectedAvatar.id === avatar.id}
-                className={cn(
-                  'flex-shrink-0 w-32 h-32 rounded-2xl cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 flex flex-col items-center justify-center text-center p-4 border-2 shadow-lg hover:shadow-xl snap-center',
-                  selectedAvatar.id === avatar.id
-                    ? 'border-gold-400 bg-gradient-to-br from-gold-50 to-royalBlue-50 shadow-gold-200'
-                    : 'border-royalBlue-200 bg-white hover:border-royalBlue-300'
-                )}
-              >
-                <span className="text-4xl mb-2" aria-hidden="true">{getAvatarEmoji(avatar)}</span>
-                <span className="text-sm font-medium text-royalBlue-800">
-                  {avatar.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return '🌴'; // Palm tree as default tropical emoji
 };
 
 interface WelcomeScreenProps {
@@ -229,7 +37,7 @@ export default function WelcomeScreen({
   onLanguageSelect,
   onStart
 }: WelcomeScreenProps) {
-  const [activeTab, setActiveTab] = useState<'avatar' | 'privacy'>('avatar');
+  const [activeTab, setActiveTab] = useState<'concierge' | 'privacy'>('concierge');
 
   const privacyFeatures = [
     {
@@ -251,43 +59,52 @@ export default function WelcomeScreen({
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-3 md:p-6">
-      <div className="w-full max-w-4xl bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-sandyBeige-50 via-caribbeanTurquoise-50 to-oceanBlue-100 flex items-center justify-center p-3 md:p-6 tropical-pattern">
+      <div className="w-full max-w-4xl bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-luxuryGold-200/30 overflow-hidden luxury-shadow">
         {/* Header */}
-        <div className="bg-gradient-to-r from-royalBlue-600 via-royalBlue-700 to-royalBlue-800 text-white p-6 md:p-8 flex items-center justify-between">
-          <div className="w-24 md:w-36 lg:w-48">
-            <img 
-              src={LFAILogo} 
-              alt="Level-FieldAI Logo" 
-              className="max-w-full max-h-16 object-contain" 
-            />
+        <div className="bg-gradient-to-r from-oceanBlue-600 via-oceanBlue-700 to-caribbeanTurquoise-700 text-white p-6 md:p-8 relative overflow-hidden">
+          {/* Tropical background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-4 left-4 text-6xl">🌴</div>
+            <div className="absolute top-8 right-8 text-4xl">🌺</div>
+            <div className="absolute bottom-4 left-1/4 text-5xl">🏖️</div>
+            <div className="absolute bottom-6 right-1/3 text-3xl">🐚</div>
           </div>
-          <div className="text-center flex-grow">
-            <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-white to-gold-200 bg-clip-text text-transparent">
-              Level Field AI Avatar Experience
-            </h1>
-            <p className="text-lg md:text-xl text-royalBlue-100 font-medium">
-              Choose your AI companion and start your interactive journey
+          
+          <div className="relative z-10 text-center">            
+            <div className="mb-4 flex items-center justify-center">
+              
+            </div>            
+            <div className="mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-white via-luxuryGold-200 to-sandyBeige-100 bg-clip-text text-transparent">
+                Four Seasons Anguilla
+              </h1>
+              <div className="w-24 h-1 bg-gradient-to-r from-luxuryGold-400 to-coralSunset-400 mx-auto rounded-full mb-3"></div>
+              <h2 className="text-2xl md:text-3xl font-semibold text-caribbeanTurquoise-100">
+                AI Concierge Experience
+              </h2>
+            </div>
+            <p className="text-lg md:text-xl text-oceanBlue-100 font-medium max-w-2xl mx-auto">
+              Welcome to paradise. Let our AI concierge guide you through the ultimate luxury Caribbean experience
             </p>
           </div>
-          <div className="w-24 md:w-36 lg:w-48"></div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="bg-gradient-to-r from-royalBlue-50 to-gold-50 border-b border-royalBlue-200">
-          <div className="flex justify-center">
+        <div className="bg-gradient-to-r from-sandyBeige-50 to-caribbeanTurquoise-50 border-b border-oceanBlue-200">
+          <div className="bg-gradient-to-r from-royalBlue-50 to-gold-50 border-b border-royalBlue-200 flex">
             {[
-              { id: 'avatar', label: 'Choose Avatar', icon: '🤖' },
+              { id: 'concierge', label: 'Choose Concierge', icon: '🌺' },
               { id: 'privacy', label: 'Privacy & Security', icon: '🔒' }
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'concierge' | 'privacy')}
                 className={cn(
-                  'flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 border-b-2',
-                  activeTab === tab.id
-                    ? 'text-royalBlue-700 border-royalBlue-500 bg-white/70'
-                    : 'text-gray-600 border-transparent hover:text-royalBlue-600 hover:bg-white/50'
+                  "flex items-center gap-2 py-4 px-6 border-b-2 transition-all duration-300",
+                  activeTab === tab.id 
+                    ? 'text-oceanBlue-700 border-luxuryGold-500 bg-white/70'
+                    : 'text-gray-600 border-transparent hover:text-oceanBlue-600 hover:bg-white/50'
                 )}
               >
                 <span className="text-lg">{tab.icon}</span>
@@ -299,96 +116,125 @@ export default function WelcomeScreen({
 
         {/* Tab Content */}
         <div className="p-6 md:p-8">
-          {activeTab === 'avatar' && (
-            <>
-              <section className="mb-8" aria-labelledby="avatar-heading">
-                <header className="text-center mb-6">
-                  <h2 id="avatar-heading" className="font-bold text-2xl text-royalBlue-900 bg-gradient-to-r from-royalBlue-700 to-gold-600 bg-clip-text text-transparent">
-                    Select Your AI Avatar
-                  </h2>
-                </header>
-                
-                <AvatarCarousel
-                  avatars={Object.values(AVATAR_CATEGORIES).flat()}
-                  selectedAvatar={selectedAvatar}
-                  onSelect={onAvatarSelect}
-                />
-              </section>
-
-              <section className="mb-8" aria-labelledby="language-heading">
-                <header className="text-center mb-6">
-                  <h2 id="language-heading" className="font-bold text-2xl text-royalBlue-900 bg-gradient-to-r from-royalBlue-700 to-gold-600 bg-clip-text text-transparent">
-                    Choose Language
-                  </h2>
-                </header>
-                
-                <div className="flex justify-center">
-                  <Select value={selectedLanguage} onValueChange={onLanguageSelect}>
-                    <SelectTrigger className="w-64 h-12 text-lg border-2 border-royalBlue-300 focus:border-gold-400 bg-white/80 backdrop-blur-sm">
-                      <SelectValue placeholder="Select a language" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SUPPORTED_LANGUAGES.map((lang) => (
-                        <SelectItem key={lang.value} value={lang.value} className="text-lg py-3">
-                          <span className="flex items-center gap-3">
-                            <span className="text-xl">{lang.flag}</span>
-                            <span>{lang.label}</span>
-                          </span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </section>
-
-              <div className="text-center">
-                <Button
-                  onClick={() => onStart({ language: selectedLanguage, avatarUseCase: selectedAvatar })}
-                  size="lg"
-                  className="bg-gradient-to-r from-royalBlue-600 to-royalBlue-700 hover:from-royalBlue-700 hover:to-royalBlue-800 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-gold-300 text-lg"
+          {activeTab === 'concierge' && (
+            <section className="mb-8" aria-labelledby="concierge-heading">
+              <header className="text-center mb-6">
+                <h2 
+                  id="concierge-heading" 
+                  className="font-bold text-2xl text-oceanBlue-900 bg-gradient-to-r from-oceanBlue-700 to-luxuryGold-600 bg-clip-text text-transparent"
                 >
-                  Start AI Experience
-                </Button>
+                  Select Your AI Concierge
+                </h2>
+                <p className="text-oceanBlue-600 mt-2 font-medium">
+                  Choose your personal guide to Four Seasons Anguilla
+                </p>
+              </header>
+              
+              {/* Centered Concierge Selection */}
+              <div className="flex justify-center mb-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                  {Object.values(AVATAR_CATEGORIES).flat().slice(0, 3).map((avatar) => (
+                    <div
+                      key={avatar.id}
+                      onClick={() => onAvatarSelect(avatar)}
+                      className={cn(
+                        'flex flex-col items-center justify-center p-6 rounded-2xl cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 border-2 shadow-lg hover:shadow-xl text-center',
+                        selectedAvatar.id === avatar.id
+                          ? 'border-luxuryGold-400 bg-gradient-to-br from-luxuryGold-50 to-caribbeanTurquoise-50 shadow-luxuryGold-200'
+                          : 'border-oceanBlue-200 bg-white hover:border-caribbeanTurquoise-300'
+                      )}
+                    >
+                      <span className="text-5xl mb-3" aria-hidden="true">{getAvatarEmoji(avatar)}</span>
+                      <span className="text-lg font-medium text-oceanBlue-800 mb-1">
+                        {avatar.name}
+                      </span>
+                      <span className="text-sm text-oceanBlue-600">
+                        {avatar.category}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </>
+              
+              {/* Language Selection */}
+              <div className="mt-8">
+                <h3 className="text-center font-semibold text-xl text-oceanBlue-800 mb-4">
+                  Select Your Language
+                </h3>
+                
+                <div className="flex justify-center flex-wrap gap-4 max-w-2xl mx-auto">
+                  {SUPPORTED_LANGUAGES.map((lang) => (
+                    <button
+                      key={lang.value}
+                      onClick={() => onLanguageSelect(lang.value)}
+                      className={cn(
+                        'flex flex-col items-center p-3 rounded-xl border-2 transition-all duration-300 hover:scale-105',
+                        selectedLanguage === lang.value
+                          ? 'border-luxuryGold-400 bg-gradient-to-br from-luxuryGold-50 to-white shadow-md'
+                          : 'border-oceanBlue-200 bg-white hover:border-oceanBlue-300'
+                      )}
+                    >
+                      <span className="text-3xl mb-1">{lang.flag}</span>
+                      <span className="text-xs font-medium">{lang.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+          
+          {activeTab === 'privacy' && (
+            <section aria-labelledby="privacy-heading">
+              <header className="text-center mb-6">
+                <h2 
+                  id="privacy-heading" 
+                  className="font-bold text-2xl text-oceanBlue-900 bg-gradient-to-r from-oceanBlue-700 to-luxuryGold-600 bg-clip-text text-transparent"
+                >
+                  Camera Access & Privacy
+                </h2>
+              </header>
+              
+              <p className="text-oceanBlue-800 mb-6 leading-relaxed text-lg font-medium">
+                To enable interactive features with our AI concierge, camera access is required. 
+                Your privacy remains our highest priority at Four Seasons.
+              </p>
+              
+              <ul className="space-y-4 mb-6" role="list">
+                {privacyFeatures.map((feature, idx) => (
+                  <li 
+                    key={idx} 
+                    className="flex items-start gap-4 bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-oceanBlue-200 shadow-sm hover:shadow-md transition-shadow duration-200" 
+                    role="listitem"
+                  >
+                    <span className="text-2xl" aria-hidden="true">{feature.icon}</span>
+                    <span className="text-oceanBlue-800 leading-relaxed font-medium">
+                      {feature.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              
+              <div className="bg-gradient-to-r from-luxuryGold-100 via-sandyBeige-50 to-caribbeanTurquoise-50 p-6 rounded-2xl border-2 border-luxuryGold-300 shadow-inner">
+                <p className="text-oceanBlue-900 leading-relaxed font-medium">
+                  Our AI concierge processes video feed in real time for responsive interaction, 
+                  ensuring your experience is both seamless and secure.
+                </p>
+              </div>
+            </section>
           )}
 
-          {activeTab === 'privacy' && (
-            <>
-              <section aria-labelledby="privacy-heading">
-                <header className="text-center mb-6">
-                  <h2 id="privacy-heading" className="font-bold text-2xl text-royalBlue-900 bg-gradient-to-r from-royalBlue-700 to-gold-600 bg-clip-text text-transparent">
-                    Camera Access & Privacy
-                  </h2>
-                </header>
-                
-                <p className="text-royalBlue-800 mb-6 leading-relaxed text-lg font-medium">
-                  To enable interactive features with our AI avatar, camera access is required. 
-                  Your privacy remains our highest priority.
-                </p>
-                
-                <ul className="space-y-4 mb-6" role="list">
-                  {privacyFeatures.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-4 bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-royalBlue-200 shadow-sm hover:shadow-md transition-shadow duration-200" role="listitem">
-                      <span className="text-2xl" aria-hidden="true">{feature.icon}</span>
-                      <span className="text-royalBlue-800 leading-relaxed font-medium">
-                        {feature.text}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="bg-gradient-to-r from-gold-100 via-gold-50 to-royalBlue-50 p-6 rounded-2xl border-2 border-gold-300 shadow-inner">
-                  <p className="text-royalBlue-900 leading-relaxed font-medium">
-                    The AI avatar processes video feed in real time for responsive interaction, 
-                    with no data captured or saved. You may revoke camera permission at any time.
-                  </p>
-                </div>
-              </section>
-            </>
-          )}
+          {/* Begin Experience Button */}
+          <div className="text-center mt-8">
+            <Button
+              onClick={() => onStart({ language: selectedLanguage, avatarUseCase: selectedAvatar })}
+              size="lg"
+              className="bg-gradient-to-r from-oceanBlue-600 to-caribbeanTurquoise-600 hover:from-oceanBlue-700 hover:to-caribbeanTurquoise-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-luxuryGold-300 text-lg ocean-shimmer coral-glow"
+            >
+              Begin Your Four Seasons Experience
+            </Button>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

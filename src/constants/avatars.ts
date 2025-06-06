@@ -1,4 +1,4 @@
-export type AvatarCategory = 'Sports' | 'Real Estate' | 'Concierge';
+export type AvatarCategory = 'Resort Services' | 'Dining & Experiences' | 'Concierge';
 
 export type AvatarUseCase = {
   id: string;
@@ -14,51 +14,44 @@ export type AvatarUseCase = {
 
 // Group avatars by category
 export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
-  Sports: [
+  'Resort Services': [
     {
       id: 'tourism',
-      name: 'Anguilla Virtual Tourism Concierge',
-      description: 'Interactive avatar for University of Nebraska Basketball',
+      name: 'Resort Activities Coordinator',
+      description: 'Your personal guide to Four Seasons Anguilla activities and amenities',
       persona_id: 'pcb0a3d75781',
       replica_id: 'r63bd2510c34',
       defaultLanguage: 'english',
       nameInGreeting: 'Erick',
-      role: 'Your virtual AI anguilla Virtual tourism Concierge',
-      category: 'Concierge'
+      role: 'Your Four Seasons Resort Activities Coordinator',
+      category: 'Resort Services'
     },
-    // New CVI entries
+  ],
+  'Dining & Experiences': [
     {
       id: 'Erick',
-      name: 'Anguilla Business and Experience Connector',
-      description: 'Anguilla Business and Experience Connector',
+      name: 'Culinary Experience Guide',
+      description: 'Expert guide for Four Seasons dining and culinary experiences',
       persona_id: 'p9ac6ee1e114',
       replica_id: 'r63bd2510c34',
       defaultLanguage: 'english',
       nameInGreeting: 'Kenroy',
-      role: 'I am your virutal AI Anguilla Business and Experience Connector',
-      category: 'Concierge'
+      role: 'Your Four Seasons Culinary Experience Guide',
+      category: 'Dining & Experiences'
     },
-    
+  ],
+  Concierge: [
     {
       id: 'ghanacation-virtual-tour',
-      name: 'Anguilla Events Alerts and Cultural Guide',
-      description: 'Anguilla Events Alerts and Cultural Guide',
+      name: 'Luxury Concierge Assistant',
+      description: 'Your personal Four Seasons concierge for exclusive experiences',
       persona_id: 'p5c14969b420',
       replica_id: 'r63bd2510c34',
       defaultLanguage: 'english',
       nameInGreeting: 'Enoch',
-      role: 'Your virtual AI ambassader for Anguilla Events Alerts and Cultural Guide.',
+      role: 'Your Four Seasons Luxury Concierge Assistant',
       category: 'Concierge'
     },
-        
-  ],
-  'Real Estate': [
-    
-    
-  ],
-  Concierge: [
-    
-    
   ]
 };
 

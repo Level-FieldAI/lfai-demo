@@ -64,7 +64,7 @@ export const CameraSettings = ({ actionLabel, onAction, cancelLabel, onCancel }:
             onClick={() => {
               refreshDevices();
             }}
-            className='px-6 py-2 rounded-button bg-primary text-slate-50'
+            className='px-6 py-2 rounded-button bg-gradient-to-r from-oceanBlue-600 to-caribbeanTurquoise-600 text-white border border-luxuryGold-300'
           >
             Turn on Camera & Microphone
           </button>
@@ -76,7 +76,7 @@ export const CameraSettings = ({ actionLabel, onAction, cancelLabel, onCancel }:
             <div className='flex items-center justify-center'>
               <button
                 onClick={toggleCamera}
-                className={`p-2 sm:p-2.5 rounded-md text-slate-50 bg-slate-500/70`}
+                className={`p-2 sm:p-2.5 rounded-md text-white bg-oceanBlue-500/70 hover:bg-oceanBlue-600/80 transition-colors`}
               >
                 {isCameraEnabled ? (
                   <VideoIcon className='size-4 sm:size-5' />
@@ -94,7 +94,7 @@ export const CameraSettings = ({ actionLabel, onAction, cancelLabel, onCancel }:
             <div className='flex items-center justify-center'>
               <button
                 onClick={toggleMicrophone}
-                className={`p-2 sm:p-2.5 rounded-md text-slate-50 bg-slate-500/70`}
+                className={`p-2 sm:p-2.5 rounded-md text-white bg-oceanBlue-500/70 hover:bg-oceanBlue-600/80 transition-colors`}
               >
                 {isMicEnabled ? (
                   <Mic className='size-4 sm:size-5' />
