@@ -205,22 +205,29 @@ function AppWithConversations() {
         )}
         
         {screen === 'call' && conversation && (
-          <div className="flex flex-col h-screen">
+          <div className={cn("flex flex-col h-screen", {
+            "mobile-call-layout": isMobile,
+          })}>
             {renderHeader()}
             
-            <div className="flex-grow w-full">
+            <div className={cn("flex-grow w-full overflow-hidden", {
+              "min-h-0": isMobile, // Ensures flex child can shrink below content size
+            })}>
               <CallScreen conversation={conversation} handleEnd={handleEnd} isMobile={isMobile} />
             </div>
             
-            <div className={cn("bg-gray-50 border-t border-gray-200", {
-              "py-1": isMobile,
-              "py-0.5": !isMobile,
+            <div className={cn("bg-gray-50 border-t border-gray-200 flex-shrink-0", {
+              "py-1 px-2": isMobile,
+              "py-0.5 px-4": !isMobile,
             })}>
-              <div className="flex justify-between items-center px-4">
-                <p className="text-xs font-medium">{currentAvatar.name}</p>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-600">Status:</span>
-                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+              <div className={cn("flex justify-between items-center", {
+                "text-xs": isMobile,
+                "text-sm": !isMobile,
+              })}>
+                <p className="font-medium truncate max-w-[50%]">{currentAvatar.name}</p>
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <span className="text-gray-600 hidden sm:inline">Status:</span>
+                  <span className={`px-1.5 py-0.5 text-xs font-medium rounded-full ${
                     isCompleted ? 'bg-blue-100 text-blue-800' :
                     hasError ? 'bg-red-100 text-red-800' :
                     'bg-green-100 text-green-800'
@@ -231,7 +238,7 @@ function AppWithConversations() {
               </div>
             </div>
             
-            {renderFooter()}
+            {!isMobile && renderFooter()}
           </div>
         )}
 

@@ -57,7 +57,7 @@ export const CameraSettings = ({ actionLabel, onAction, cancelLabel, onCancel }:
   };
 
   return (
-    <div className='mt-10 relative w-full max-w-screen-md flex flex-col items-center justify-center mx-auto'>
+    <div className='relative w-full max-w-screen-md flex flex-col items-center justify-center mx-auto px-4'>
       <div className='flex items-center justify-center'>
         {getUserMediaError && (
           <button
@@ -72,16 +72,16 @@ export const CameraSettings = ({ actionLabel, onAction, cancelLabel, onCancel }:
 
 
         {!getUserMediaError && (
-          <div className='flex items-center justify-end gap-2'>
+          <div className='flex items-center justify-center gap-1 sm:gap-2 flex-wrap'>
             <div className='flex items-center justify-center'>
               <button
                 onClick={toggleCamera}
-                className={`p-2.5 rounded-md text-slate-50 bg-slate-500/70`}
+                className={`p-2 sm:p-2.5 rounded-md text-slate-50 bg-slate-500/70`}
               >
                 {isCameraEnabled ? (
-                  <VideoIcon className='size-5' />
+                  <VideoIcon className='size-4 sm:size-5' />
                 ) : (
-                  <VideoOff className='size-5' />
+                  <VideoOff className='size-4 sm:size-5' />
                 )}
               </button>
               <SelectDevice
@@ -94,12 +94,12 @@ export const CameraSettings = ({ actionLabel, onAction, cancelLabel, onCancel }:
             <div className='flex items-center justify-center'>
               <button
                 onClick={toggleMicrophone}
-                className={`p-2.5 rounded-md text-slate-50 bg-slate-500/70`}
+                className={`p-2 sm:p-2.5 rounded-md text-slate-50 bg-slate-500/70`}
               >
                 {isMicEnabled ? (
-                  <Mic className='size-5' />
+                  <Mic className='size-4 sm:size-5' />
                 ) : (
-                  <MicOff className='size-5' />
+                  <MicOff className='size-4 sm:size-5' />
                 )}
               </button>
               <SelectDevice
@@ -119,18 +119,18 @@ export const CameraSettings = ({ actionLabel, onAction, cancelLabel, onCancel }:
         )}
       </div>
 
-      <div className='flex gap-4 mt-6'>
-        {cancelLabel && <Button variant='outline' onClick={onCancel}>
+      <div className='flex gap-2 sm:gap-4 mt-3 sm:mt-6'>
+        {cancelLabel && <Button variant='outline' onClick={onCancel} size="sm">
           {cancelLabel}
         </Button>}
         {actionLabel && <Button
           onClick={onAction}
           disabled={getUserMediaError || !currentCam || !currentMic}
+          size="sm"
+          className="gap-1 sm:gap-2"
         >
-          <span>
-            <Video className='size-6 mr-2' />
-          </span>
-          {actionLabel}
+          <Video className='size-4 sm:size-6' />
+          <span className="text-xs sm:text-sm">{actionLabel}</span>
         </Button>}
       </div>
     </div>

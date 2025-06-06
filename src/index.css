@@ -107,4 +107,46 @@ body {
     min-height: 44px;
     min-width: 44px;
   }
+  
+  /* Ensure videos don't overflow on mobile */
+  video {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Prevent video container overflow */
+  .video-container {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* Mobile-specific video positioning */
+  .mobile-video-overlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Ensure proper aspect ratios on mobile */
+  .aspect-mobile-video {
+    aspect-ratio: 9 / 16;
+  }
+  
+  /* Mobile call screen layout */
+  .mobile-call-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Reduce padding on mobile for more video space */
+  #root {
+    padding: 0.5rem;
+  }
 }

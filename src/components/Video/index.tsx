@@ -8,8 +8,12 @@ interface VideoProps {
 
 export const Video = ({ id, className }: VideoProps) => {
   return (
-    <DailyVideo
-      sessionId={id}      type="video"      className={cn('w-full h-full object-cover rounded-md', className)}
-    />
+    <div className={cn('video-container', className)}>
+      <DailyVideo
+        sessionId={id}
+        type="video"
+        className="w-full h-full object-cover rounded-md"
+      />
+    </div>
   );
 };

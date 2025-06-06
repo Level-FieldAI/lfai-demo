@@ -50,11 +50,20 @@ export const CallScreen = ({
     handleEnd();
   }
 
-  return <div>
-    <Call />
-    <CameraSettings
-      actionLabel='Leave Call'
-      onAction={handleLeave}
-    />
-  </div>;
+  return (
+    <div className="flex flex-col h-full">
+      {/* Video area - takes most of the space */}
+      <div className="flex-1 min-h-0 relative">
+        <Call />
+      </div>
+      
+      {/* Camera settings - fixed at bottom */}
+      <div className={`flex-shrink-0 ${isMobile ? 'pb-2' : 'pb-4'}`}>
+        <CameraSettings
+          actionLabel='Leave Call'
+          onAction={handleLeave}
+        />
+      </div>
+    </div>
+  );
 };
