@@ -41,13 +41,13 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
     
     {
       id: 'ghanacation-virtual-tour',
-      name: 'Ghanacation com Virtual Tour',
-      description: 'Virtual tour guide for Ghanacation.com',
-      persona_id: 'p1ca48c757b5',
+      name: 'Ghana SafeTravel Advisor - Explore Ghana Virtually',
+      description: 'Virtual tour guide for Ghanacation tours',
+      persona_id: 'p88d77cee8e7',
       replica_id: 'r0e739516da9',
       defaultLanguage: 'english',
-      nameInGreeting: 'Ghanacation Guide',
-      role: 'Your virtual tour guide for Ghanacation.com.',
+      nameInGreeting: 'Afia',
+      role: 'Your virtual AI ambassader for Ghana.',
       category: 'Concierge'
     },
         
