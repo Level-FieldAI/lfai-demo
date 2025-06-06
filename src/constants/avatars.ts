@@ -16,70 +16,47 @@ export type AvatarUseCase = {
 export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
   Sports: [
     {
-      id: 'nebraska-basketball',
-      name: 'Nebraska Basketball Avatar',
+      id: 'tourism',
+      name: 'Anguilla Virtual Tourism Concierge',
       description: 'Interactive avatar for University of Nebraska Basketball',
-      persona_id: 'p457dff3ae3c',
-      replica_id: 'ra8460d6f9f2',
+      persona_id: 'pcb0a3d75781',
+      replica_id: 'r63bd2510c34',
       defaultLanguage: 'english',
       nameInGreeting: 'Erick',
-      role: 'Your virtual AI Ambassador for University of Nebraska Mens Basketball Team',
-      category: 'Sports'
+      role: 'Your virtual AI anguilla Virtual tourism Concierge',
+      category: 'Concierge'
     },
     // New CVI entries
     {
       id: 'Erick',
-      name: 'Erick Strickland – Former NBA Player',
-      description: 'Interactive avatar of Erick Strickland – Former NBA Player',
-      persona_id: 'p887f472f253',
-      replica_id: 'ra8460d6f9f2',
+      name: 'Anguilla Business and Experience Connector',
+      description: 'Anguilla Business and Experience Connector',
+      persona_id: 'p9ac6ee1e114',
+      replica_id: 'r63bd2510c34',
       defaultLanguage: 'english',
-      nameInGreeting: 'Erick Strickland',
-      role: 'Your virtual AI ambassador, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database',
-      category: 'Sports'
+      nameInGreeting: 'Kenroy',
+      role: 'I am your virutal AI Anguilla Business and Experience Connector',
+      category: 'Concierge'
     },
     
     {
       id: 'ghanacation-virtual-tour',
-      name: 'Ghana SafeTravel Advisor',
-      description: 'Virtual tour guide for Ghanacation tours',
-      persona_id: 'p88d77cee8e7',
-      replica_id: 'r0e739516da9',
+      name: 'Anguilla Events Alerts and Cultural Guide',
+      description: 'Anguilla Events Alerts and Cultural Guide',
+      persona_id: 'p5c14969b420',
+      replica_id: 'r63bd2510c34',
       defaultLanguage: 'english',
-      nameInGreeting: 'Afia',
-      role: 'Your virtual AI ambassader for Ghana.',
+      nameInGreeting: 'Enoch',
+      role: 'Your virtual AI ambassader for Anguilla Events Alerts and Cultural Guide.',
       category: 'Concierge'
     },
         
   ],
   'Real Estate': [
     
-    // New CVI entry
-    {
-      id: 'fields-frisco-conversational',
-      name: 'Frisco Fields',
-      description: 'Conversational avatar for Fields Frisco community',
-      persona_id: 'p19f29670176',
-      replica_id: 'r0e739516da9',
-      defaultLanguage: 'english',
-      nameInGreeting: 'Fields Frisco',
-      role: 'Virtual guide for Fields Frisco real estate.',
-      category: 'Real Estate'
-    },
+    
   ],
   Concierge: [
-    
-    {
-      id: 'St. Kitts Tourguide',
-      name: 'St. Kitts and Nevis Tour Guide',
-      description: 'Interactive avatar for St. Kitts',
-      persona_id: 'pca68e2ee647',
-      replica_id: 'r0e739516da9',
-      defaultLanguage: 'english',
-      nameInGreeting: 'Alexander',
-      role: 'Your virtual AI tourism specialist at St. Kitts Tourism',
-      category: 'Concierge'
-    },
     
     
   ]
