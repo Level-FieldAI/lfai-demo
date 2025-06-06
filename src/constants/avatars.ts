@@ -80,17 +80,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       role: 'Your virtual AI tourism specialist at St. Kitts Tourism',
       category: 'Concierge'
     },
-    {
-      id: 'St. Kitts Tourguide',
-      name: 'St. Kitts and Nevis Tour Guide',
-      description: 'Interactive avatar for St. Kitts',
-      persona_id: 'pca68e2ee647',
-      replica_id: 'r0e739516da9',
-      defaultLanguage: 'english',
-      nameInGreeting: 'Alexander',
-      role: 'Your virtual AI tourism specialist at St. Kitts Tourism',
-      category: 'Concierge'
-    },
+    
     
   ]
 };
