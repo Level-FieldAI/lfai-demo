@@ -41,7 +41,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
     
     {
       id: 'ghanacation-virtual-tour',
-      name: 'Ghana SafeTravel Advisor - Explore Ghana Virtually',
+      name: 'Ghana SafeTravel Advisor',
       description: 'Virtual tour guide for Ghanacation tours',
       persona_id: 'p88d77cee8e7',
       replica_id: 'r0e739516da9',
