@@ -3,17 +3,18 @@ import { DailyProvider } from '@daily-co/daily-react'
 import WelcomeScreen from '@/components/WelcomeScreen'
 import { HairCheckScreen } from '@/components/HairCheckScreen'
 import { CallScreen } from '@/components/CallScreen'
-import { ConversationsPage } from '@/components/ConversationsPage'
+import { SessionManager } from '@/components/SessionManager'
 import { createConversation, endConversation } from '@/api'
 import { IConversation } from '@/types'
 import { useToast } from "@/hooks/use-toast"
-import { useConversationMonitor } from '@/hooks/useConversationMonitor'
 import { cn } from '@/lib/utils'
 import { AvatarUseCase, DEFAULT_AVATAR } from '@/constants/avatars'
 import { DEFAULT_LANGUAGE } from '@/constants/languages'
-import { Button } from '@/components/ui/button'
 
-type Screen = 'welcome' | 'hairCheck' | 'call' | 'conversations'
+// Import test utility for development
+import '@/utils/testUsageTracker'
+
+type Screen = 'welcome' | 'hairCheck' | 'call'
 
 function AppWithConversations() {
   const { toast } = useToast()
@@ -22,36 +23,6 @@ function AppWithConversations() {
   const [isMobile, setIsMobile] = useState(false)
   const [currentAvatar, setCurrentAvatar] = useState<AvatarUseCase>(DEFAULT_AVATAR)
   const [selectedLanguage, setSelectedLanguage] = useState<string>(DEFAULT_LANGUAGE.value)
-  const [completedConversations, setCompletedConversations] = useState<IConversation[]>([])
-
-  // Monitor current conversation
-  const { isCompleted, hasError } = useConversationMonitor({
-    conversationId: conversation?.conversation_id,
-    onConversationComplete: (completedConversation) => {
-      toast({
-        title: 'Call Completed',
-        description: `Your conversation with ${currentAvatar.name} has ended.`,
-      });
-      
-      setCompletedConversations(prev => {
-        const exists = prev.some(c => c.conversation_id === completedConversation.conversation_id);
-        if (!exists) {
-          return [completedConversation, ...prev];
-        }
-        return prev.map(c => 
-          c.conversation_id === completedConversation.conversation_id ? completedConversation : c
-        );
-      });
-    },
-    onConversationError: () => {
-      toast({
-        title: 'Call Error',
-        description: `Your conversation with ${currentAvatar.name} encountered an error.`,
-        variant: 'destructive',
-      });
-    },
-    enabled: !!conversation && screen === 'call',
-  });
 
   // Detect if device is mobile
   useEffect(() => {
@@ -111,37 +82,13 @@ function AppWithConversations() {
     setScreen('call')
   }
 
-  const handleViewConversations = () => {
-    setScreen('conversations')
-  }
-
-  const handleBackFromConversations = () => {
-    setScreen('welcome')
-  }
-
   const renderHeader = () => (
     <header className={cn("flex justify-between items-center", {
       "py-2 px-4": isMobile,
       "py-1 px-6": !isMobile,
     })}>
-      
-      
       <div className="flex items-center gap-2">
-        {completedConversations.length > 0 && screen !== 'conversations' && (
-          <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-            {completedConversations.length} completed
-          </span>
-        )}
-        
-        {screen === 'conversations' && (
-          <Button 
-            onClick={handleBackFromConversations} 
-            variant="outline" 
-            size="sm"
-          >
-            Back to Call
-          </Button>
-        )}
+        <h1 className="text-lg font-semibold">Level-FieldAI Demo</h1>
       </div>
     </header>
   );
@@ -151,166 +98,107 @@ function AppWithConversations() {
       "py-2": isMobile,
       "py-1": !isMobile,
     })}>
-      <div className="flex justify-between items-center px-4">
+      <div className="flex justify-center items-center px-4">
         <p>Level-FieldAI Demo</p>
-        
-        {screen !== 'conversations' && (
-          <Button 
-            onClick={handleViewConversations} 
-            variant="outline" 
-            size="sm"
-            className="ml-4"
-          >
-            Conversations
-          </Button>
-        )}
       </div>
     </footer>
   );
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <DailyProvider>
-        {screen === 'welcome' && (
-          <>
-            {renderHeader()}
-            <div className="flex-grow">
-              <WelcomeScreen 
-                selectedAvatar={currentAvatar}
-                onAvatarSelect={setCurrentAvatar}
-                selectedLanguage={selectedLanguage}
-                onLanguageSelect={setSelectedLanguage}
-                onStart={handleStart}
-              />
+    <SessionManager
+      onStartNewCall={() => setScreen('welcome')}
+      showTimer={true}
+      onSessionStart={() => {
+        console.log('Session started');
+      }}
+      onSessionEnd={(reason, duration) => {
+        console.log('Session ended:', reason, 'Duration:', duration);
+        if (screen === 'call') {
+          handleEnd();
+        }
+      }}
+      onUsageLimitReached={(type) => {
+        if (type === 'daily-limit') {
+          toast({
+            title: 'Daily Limit Reached',
+            description: 'You have reached your daily limit of 3 avatar calls.',
+            variant: 'destructive',
+          });
+        }
+      }}
+      autoEndOnTimeLimit={true}
+    >
+      <main className="flex flex-col min-h-screen">
+        <DailyProvider>
+          {screen === 'welcome' && (
+            <>
+              {renderHeader()}
+              <div className="flex-grow">
+                <WelcomeScreen 
+                  selectedAvatar={currentAvatar}
+                  onAvatarSelect={setCurrentAvatar}
+                  selectedLanguage={selectedLanguage}
+                  onLanguageSelect={setSelectedLanguage}
+                  onStart={handleStart}
+                />
+              </div>
+              {renderFooter()}
+            </>
+          )}
+          
+          {screen === 'hairCheck' && (
+            <div className="flex flex-col h-screen">
+              {renderHeader()}
+              
+              <div className="flex-grow">
+                <HairCheckScreen handleEnd={handleEnd} handleJoin={handleJoin} isMobile={isMobile} />
+              </div>
+              
+              <div className="bg-gray-50 p-2 border-t border-gray-200">
+                <p className="text-center text-sm font-medium">{currentAvatar.name}</p>
+                <p className="text-center text-xs text-gray-600">{currentAvatar.description}</p>
+              </div>
+              
+              {renderFooter()}
             </div>
-            {renderFooter()}
-          </>
-        )}
-        
-        {screen === 'hairCheck' && (
-          <div className="flex flex-col h-screen">
-            {renderHeader()}
-            
-            <div className="flex-grow">
-              <HairCheckScreen handleEnd={handleEnd} handleJoin={handleJoin} isMobile={isMobile} />
-            </div>
-            
-            <div className="bg-gray-50 p-2 border-t border-gray-200">
-              <p className="text-center text-sm font-medium">{currentAvatar.name}</p>
-              <p className="text-center text-xs text-gray-600">{currentAvatar.description}</p>
-            </div>
-            
-            {renderFooter()}
-          </div>
-        )}
-        
-        {screen === 'call' && conversation && (
-          <div className={cn("flex flex-col h-screen", {
-            "mobile-call-layout": isMobile,
-          })}>
-            {renderHeader()}
-            
-            <div className={cn("flex-grow w-full overflow-hidden", {
-              "min-h-0": isMobile, // Ensures flex child can shrink below content size
+          )}
+          
+          {screen === 'call' && conversation && (
+            <div className={cn("flex flex-col h-screen", {
+              "mobile-call-layout": isMobile,
             })}>
-              <CallScreen conversation={conversation} handleEnd={handleEnd} isMobile={isMobile} />
-            </div>
-            
-            <div className={cn("bg-gray-50 border-t border-gray-200 flex-shrink-0", {
-              "py-1 px-2": isMobile,
-              "py-0.5 px-4": !isMobile,
-            })}>
-              <div className={cn("flex justify-between items-center", {
-                "text-xs": isMobile,
-                "text-sm": !isMobile,
+              {renderHeader()}
+              
+              <div className={cn("flex-grow w-full overflow-hidden", {
+                "min-h-0": isMobile, // Ensures flex child can shrink below content size
               })}>
-                <p className="font-medium truncate max-w-[50%]">{currentAvatar.name}</p>
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <span className="text-gray-600 hidden sm:inline">Status:</span>
-                  <span className={`px-1.5 py-0.5 text-xs font-medium rounded-full ${
-                    isCompleted ? 'bg-blue-100 text-blue-800' :
-                    hasError ? 'bg-red-100 text-red-800' :
-                    'bg-green-100 text-green-800'
-                  }`}>
-                    {isCompleted ? 'Completed' : hasError ? 'Error' : 'Active'}
-                  </span>
+                <CallScreen conversation={conversation} handleEnd={handleEnd} isMobile={isMobile} />
+              </div>
+              
+              <div className={cn("bg-gray-50 border-t border-gray-200 flex-shrink-0", {
+                "py-1 px-2": isMobile,
+                "py-0.5 px-4": !isMobile,
+              })}>
+                <div className={cn("flex justify-between items-center", {
+                  "text-xs": isMobile,
+                  "text-sm": !isMobile,
+                })}>
+                  <p className="font-medium truncate max-w-[50%]">{currentAvatar.name}</p>
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <span className="text-gray-600 hidden sm:inline">Status:</span>
+                    <span className="px-1.5 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            {!isMobile && renderFooter()}
-          </div>
-        )}
-
-        {screen === 'conversations' && (
-          <div className="flex flex-col h-screen">
-            {renderHeader()}
-            
-            <div className="flex-grow overflow-hidden">
-              <ConversationsPage 
-                autoRefresh={true}
-                refreshInterval={5000}
-                onConversationSelect={(selectedConversation) => {
-                  console.log('Selected conversation:', selectedConversation);
-                  toast({
-                    title: 'Conversation Selected',
-                    description: `Viewing details for conversation ${selectedConversation.conversation_name || selectedConversation.conversation_id}`,
-                  });
-                }}
-              />
-            </div>
-            
-            {renderFooter()}
-          </div>
-        )}
-
-        {/* Floating notification for completed calls */}
-        {completedConversations.length > 0 && screen !== 'conversations' && (
-          <div className="fixed bottom-4 right-4 max-w-sm z-50">
-            <div className="bg-white rounded-lg shadow-lg border p-4">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-medium text-gray-900">Recent Completed Calls</h3>
-                <Button
-                  onClick={() => setCompletedConversations([])}
-                  variant="ghost"
-                  size="sm"
-                  className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
-                >
-                  ×
-                </Button>
-              </div>
               
-              <div className="space-y-2 max-h-32 overflow-y-auto">
-                {completedConversations.slice(0, 3).map((conv) => (
-                  <div key={conv.conversation_id} className="text-sm">
-                    <div className="font-medium text-gray-800 truncate">
-                      Call with {currentAvatar.name}
-                    </div>
-                    <div className="text-gray-600 text-xs">
-                      {new Date(conv.ended_at || conv.updated_at || conv.created_at).toLocaleTimeString()}
-                    </div>
-                                   </div>
-                ))}
-              </div>
-              
-              {completedConversations.length > 3 && (
-                <div className="text-xs text-gray-500 mt-2">
-                  +{completedConversations.length - 3} more
-                </div>
-              )}
-              
-              <Button 
-                onClick={handleViewConversations} 
-                size="sm" 
-                className="w-full mt-2"
-              >
-                View All Conversations
-              </Button>
+              {!isMobile && renderFooter()}
             </div>
-          </div>
-        )}
-      </DailyProvider>
-    </main>
+          )}
+        </DailyProvider>
+      </main>
+    </SessionManager>
   )
 }
 

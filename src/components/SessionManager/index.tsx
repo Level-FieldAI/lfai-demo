@@ -23,7 +23,6 @@ export const SessionManager: React.FC<SessionManagerProps> = ({
 
   const {
     isSessionActive,
-    usageStats,
     sessionDuration,
     showUsageLimitModal,
     showSessionEndModal,

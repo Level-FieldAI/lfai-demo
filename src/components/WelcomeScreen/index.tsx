@@ -4,6 +4,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '@/constants/languages';
 import { AVATAR_CATEGORIES, AvatarUseCase } from '@/constants/avatars';
+import { UsageStats } from '@/components/UsageStats';
+import { canStartCall } from '@/utils/usageTracker';
 import { cn } from '@/lib/utils';
 import LFAILogo from '/LFAI Dark Logo.png';
 
@@ -230,6 +232,11 @@ export default function WelcomeScreen({
   onStart
 }: WelcomeScreenProps) {
   const [activeTab, setActiveTab] = useState<'avatar' | 'privacy'>('avatar');
+  const [canStart, setCanStart] = useState(true);
+
+  useEffect(() => {
+    setCanStart(canStartCall());
+  }, []);
 
   const privacyFeatures = [
     {
@@ -300,7 +307,10 @@ export default function WelcomeScreen({
         {/* Tab Content */}
         <div className="p-6 md:p-8">
           {activeTab === 'avatar' && (
-            <>
+            <>              {/* Usage Stats */}
+              <div className="mb-8 flex justify-center">
+                <UsageStats showTimeUntilReset={!canStart} className="max-w-sm" />
+              </div>
               <section className="mb-8" aria-labelledby="avatar-heading">
                 <header className="text-center mb-6">
                   <h2 id="avatar-heading" className="font-bold text-2xl text-royalBlue-900 bg-gradient-to-r from-royalBlue-700 to-gold-600 bg-clip-text text-transparent">
@@ -343,13 +353,20 @@ export default function WelcomeScreen({
 
               <div className="text-center">
                 <Button
-                  onClick={() => onStart({ language: selectedLanguage, avatarUseCase: selectedAvatar })}
-                  size="lg"
-                  className="bg-gradient-to-r from-royalBlue-600 to-royalBlue-700 hover:from-royalBlue-700 hover:to-royalBlue-800 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-gold-300 text-lg"
+                  onClick={() => onStart({ language: selectedLanguage, avatarUseCase: selectedAvatar })}                  disabled={!canStart}                  size="lg"
+                  className={cn(
+                    "font-bold py-4 px-8 rounded-2xl shadow-lg transition-all duration-300 transform border-2 text-lg",
+                    canStart
+                      ? "bg-gradient-to-r from-royalBlue-600 to-royalBlue-700 hover:from-royalBlue-700 hover:to-royalBlue-800 text-white hover:shadow-xl hover:scale-105 border-gold-300"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed border-gray-300"
+                  )}
                 >
-                  Start AI Experience
-                </Button>
-              </div>
+                  {canStart ? 'Start AI Experience' : 'Daily Limit Reached'}
+                </Button>                {!canStart && (
+                  <p className="text-sm text-gray-600 mt-2">
+                    You've reached your daily limit of 3 calls. Limit resets at midnight.
+                  </p>
+                )}              </div>
             </>
           )}
 
