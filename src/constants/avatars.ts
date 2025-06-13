@@ -57,12 +57,12 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
     // New CVI entry
     {
       id: 'fields-frisco-conversational',
-      name: 'Frisco Fields',
+      name: 'Frisco Fields Community Agent',
       description: 'Conversational avatar for Fields Frisco community',
       persona_id: 'p19f29670176',
       replica_id: 'r0e739516da9',
       defaultLanguage: 'english',
-      nameInGreeting: 'Fields Frisco',
+      nameInGreeting: 'Will',
       role: 'Virtual guide for Fields Frisco real estate.',
       category: 'Real Estate'
     },
