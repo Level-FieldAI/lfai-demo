@@ -20,14 +20,13 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       name: 'Nebraska Basketball Avatar',
       description: 'Interactive avatar for University of Nebraska Basketball',
       persona_id: 'p457dff3ae3c',
-      replica_id: 'ra8460d6f9f2',
+      replica_id: 'r957ffc19f1d',
       defaultLanguage: 'english',
       nameInGreeting: 'Erick',
-      role: 'Your virtual AI Ambassador for University of Nebraska Mens Basketball Team',
+      role: 'Your virtual AI agent for University of Nebraska Mens Basketball Team',
       category: 'Sports'
     },
     // New CVI entries
-   
     
     {
       id: 'Euless-virtual-tour-guide',
@@ -42,13 +41,13 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
     },
     {
       id: 'Erick',
-      name: 'Erick Strickland – Former NBA Player',
+      name: 'AI Erick Strickland',
       description: 'Interactive avatar of Erick Strickland – Former NBA Player',
       persona_id: 'p887f472f253',
-      replica_id: 'ra8460d6f9f2',
+      replica_id: 'r957ffc19f1d',
       defaultLanguage: 'english',
-      nameInGreeting: 'Erick Strickland',
-      role: 'Your virtual AI ambassador, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database',
+      nameInGreeting: 'Virtaul Erick Strickland',
+      role: 'I played 9 years in the NBA, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database, what would you like to talk about?',
       category: 'Sports'
     },     
   ],
