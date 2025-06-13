@@ -26,7 +26,7 @@ export const testUsageTracker = {
       if (canStartCall()) {
         const sessionId = startSession();
         console.log(`Started session ${i}: ${sessionId}`);
-        endSession(sessionId, 'user-ended');
+        endSession();
         console.log(`Ended session ${i}`);
       }
     }
@@ -59,7 +59,7 @@ export const testUsageTracker = {
       console.log(`Session expired: ${expired}`);
       
       if (expired) {
-        endSession(sessionId, 'time-limit');
+        endSession();
         console.log('Session ended due to time limit');
       }
     }
@@ -89,7 +89,7 @@ export const testUsageTracker = {
     
     // Simulate session duration
     setTimeout(() => {
-      endSession(sessionId, 'user-ended');
+      endSession();
       console.log(`Session ended after ${durationMinutes} minutes`);
       testUsageTracker.showStatus();
     }, durationMinutes * 60 * 1000);

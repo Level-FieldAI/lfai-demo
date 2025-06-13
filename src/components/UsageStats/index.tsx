@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getUsageStats, getTimeUntilReset, formatTime } from '@/utils/usageTracker';
-import { Users, Clock, RefreshCw } from 'lucide-react';
+import { Users, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface UsageStatsProps {
