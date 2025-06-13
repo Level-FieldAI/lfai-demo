@@ -23,8 +23,19 @@ const getAvatarEmoji = (avatar: AvatarUseCase): string => {
     } else {
       return '🎩'; // Top hat for concierge
     }
+  } else if (avatar.category === 'Radio') {
+    // For radio-specific avatars (e.g., host, segment)
+    return '🎙️'; // Microphone emoji
+  } else if (avatar.category === 'Fan Engagement') {
+    // For general fan engagement, we can differentiate with the name
+    if (avatar.name.toLowerCase().includes('superfan')) {
+      return '🌟'; // Star for superfan
+    } else if (avatar.name.toLowerCase().includes('listener')) {
+      return '🎧'; // Headphones for a regular listener
+    }
+    return '👤'; // Default person for other fan engagements
   }
-  return '👤'; // Default person emoji
+  return '👤'; // Default person emoji for any unhandled category
 };
 
 const AvatarCarousel = ({ avatars, selectedAvatar, onSelect }: {
