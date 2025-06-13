@@ -27,6 +27,19 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       category: 'Sports'
     },
     // New CVI entries
+   
+    
+    {
+      id: 'Euless-virtual-tour-guide',
+      name: 'Euless Library Agent',
+      description: 'Virtual tour guide for Euless Public Library tours',
+      persona_id: 'p7f770c70c12',
+      replica_id: 'r0e739516da9',
+      defaultLanguage: 'english',
+      nameInGreeting: 'Scott',
+      role: 'Your virtual AI agent for the Euless Public Library.',
+      category: 'Concierge'
+    },
     {
       id: 'Erick',
       name: 'Erick Strickland – Former NBA Player',
@@ -37,20 +50,7 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
       nameInGreeting: 'Erick Strickland',
       role: 'Your virtual AI ambassador, this chat is sponsored by Cerebro Sports, Basketballs Largest box Score Database',
       category: 'Sports'
-    },
-    
-    {
-      id: 'ghanacation-virtual-tour',
-      name: 'Ghana SafeTravel Advisor',
-      description: 'Virtual tour guide for Ghanacation tours',
-      persona_id: 'p88d77cee8e7',
-      replica_id: 'r0e739516da9',
-      defaultLanguage: 'english',
-      nameInGreeting: 'Afia',
-      role: 'Your virtual AI ambassader for Ghana.',
-      category: 'Concierge'
-    },
-        
+    },     
   ],
   'Real Estate': [
     

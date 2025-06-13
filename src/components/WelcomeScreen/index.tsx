@@ -222,6 +222,7 @@ interface WelcomeScreenProps {
   selectedLanguage: string;
   onLanguageSelect: (language: string) => void;
   onStart: (params: { language: string; avatarUseCase: AvatarUseCase }) => void;
+  onCVIDemo?: () => void;
 }
 
 export default function WelcomeScreen({
@@ -229,7 +230,8 @@ export default function WelcomeScreen({
   onAvatarSelect,
   selectedLanguage,
   onLanguageSelect,
-  onStart
+  onStart,
+  onCVIDemo
 }: WelcomeScreenProps) {
   const [activeTab, setActiveTab] = useState<'avatar' | 'privacy'>('avatar');
   const [canStart, setCanStart] = useState(true);
@@ -351,9 +353,13 @@ export default function WelcomeScreen({
                 </div>
               </section>
 
-              <div className="text-center">
+
+
+              <div className="text-center space-y-4">
                 <Button
-                  onClick={() => onStart({ language: selectedLanguage, avatarUseCase: selectedAvatar })}                  disabled={!canStart}                  size="lg"
+                  onClick={() => onStart({ language: selectedLanguage, avatarUseCase: selectedAvatar })}
+                  disabled={!canStart}
+                  size="lg"
                   className={cn(
                     "font-bold py-4 px-8 rounded-2xl shadow-lg transition-all duration-300 transform border-2 text-lg",
                     canStart
@@ -362,11 +368,27 @@ export default function WelcomeScreen({
                   )}
                 >
                   {canStart ? 'Start AI Experience' : 'Daily Limit Reached'}
-                </Button>                {!canStart && (
+
+
+                </Button>
+                
+                {onCVIDemo && (
+                  <Button
+                    onClick={onCVIDemo}
+                    variant="outline"
+                    size="lg"
+                    className="font-bold py-4 px-8 rounded-2xl shadow-lg transition-all duration-300 transform border-2 text-lg bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white hover:shadow-xl hover:scale-105 border-purple-300"
+                  >
+                    Try Tavus CVI Demo
+                  </Button>
+                )}
+                
+                {!canStart && (
                   <p className="text-sm text-gray-600 mt-2">
                     You've reached your daily limit of 3 calls. Limit resets at midnight.
                   </p>
-                )}              </div>
+                )}
+              </div>
             </>
           )}
 

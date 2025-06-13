@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavus CVI Demo - Level-FieldAI</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    
+    <!-- Tavus CVI Styles -->
+    <link rel="stylesheet" href="/css/tavus-cvi.css">
+    
+    <!-- Additional styling for demo -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            overflow: hidden;
+        }
+        
+        .demo-header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+        }
+        
+        .demo-header h1 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .demo-header p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .demo-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .demo-controls button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-controls .play-btn {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .demo-controls .pause-btn {
+            background: #f44336;
+            color: white;
+        }
+        
+        .demo-controls .back-btn {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .demo-controls button:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+        
+        .demo-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+        }
+        
+        .demo-info h2 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        
+        .demo-info p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Header -->
+    <div class="demo-header">
+        <h1>Tavus CVI Demo</h1>
+        <p>Level-FieldAI Avatar Technology</p>
+    </div>
+    
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+        <button class="play-btn" onclick="playVideo()">Play</button>
+        <button class="pause-btn" onclick="pauseVideo()">Pause</button>
+    </div>
+    
+    <!-- Background Content -->
+    <div class="content-behind">
+        <h1>Level-FieldAI Avatar</h1>
+    </div>
+    
+    <!-- CVI Player Container -->
+    <div id="cvi-player-container">
+        <div id="custom-loading-indicator" class="loading-indicator">
+            Loading CVI...
+        </div>
+    </div>
+    
+    <!-- Demo Info -->
+    <div class="demo-info">
+        <h2>Interactive AI Avatar Experience</h2>
+        <p>This demo showcases Tavus CVI technology integrated with Level-FieldAI's platform</p>
+    </div>
+    
+    <!-- Tavus CVI JavaScript -->
+    <script src="/js/tavus-cvi.js"></script>
+    
+    <!-- Demo Control Functions -->
+    <script>
+        function playVideo() {
+            if (window.TavusCVIUtils) {
+                window.TavusCVIUtils.play();
+            }
+        }
+        
+        function pauseVideo() {
+            if (window.TavusCVIUtils) {
+                window.TavusCVIUtils.pause();
+            }
+        }
+        
+        function goBack() {
+            // Go back to main application
+            window.location.href = '/';
+        }
+        
+        // Log status for debugging
+        console.log('CVI Demo page loaded');
+        
+        // Check if CVI player is ready every few seconds
+        setInterval(() => {
+            if (window.TavusCVIUtils) {
+                console.log('CVI Player Status:', window.TavusCVIUtils.getStatus());
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

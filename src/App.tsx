@@ -3,6 +3,7 @@ import { DailyProvider } from '@daily-co/daily-react'
 import WelcomeScreen from '@/components/WelcomeScreen'
 import { HairCheckScreen } from '@/components/HairCheckScreen'
 import { CallScreen } from '@/components/CallScreen'
+import CVIDemo from '@/components/CVIDemo'
 import { createConversation, endConversation } from '@/api'
 import { IConversation } from '@/types'
 import { useToast } from "@/hooks/use-toast"
@@ -12,11 +13,19 @@ import { DEFAULT_LANGUAGE } from '@/constants/languages'
 
 function App() {
   const { toast } = useToast()
-  const [screen, setScreen] = useState<'welcome' | 'hairCheck' | 'call'>('welcome')
+  const [screen, setScreen] = useState<'welcome' | 'hairCheck' | 'call' | 'cvi'>('welcome')
   const [conversation, setConversation] = useState<IConversation | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const [currentAvatar, setCurrentAvatar] = useState<AvatarUseCase>(DEFAULT_AVATAR)
   const [selectedLanguage, setSelectedLanguage] = useState<string>(DEFAULT_LANGUAGE.value)
+
+  // Check URL for CVI demo mode
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('demo') === 'cvi') {
+      setScreen('cvi');
+    }
+  }, []);
 
   // Detect if device is mobile
   useEffect(() => {
@@ -83,6 +92,14 @@ function App() {
     setScreen('call')
   }
 
+  const handleCVIDemo = () => {
+    setScreen('cvi')
+  }
+
+  const handleBackToWelcome = () => {
+    setScreen('welcome')
+  }
+
   return (
     <main className="flex flex-col min-h-screen">
       <DailyProvider>
@@ -93,6 +110,7 @@ function App() {
             selectedLanguage={selectedLanguage}
             onLanguageSelect={setSelectedLanguage}
             onStart={handleStart}
+            onCVIDemo={handleCVIDemo}
           />
         )}
         
@@ -150,7 +168,28 @@ function App() {
             </footer>
           </div>
         )}
-      </DailyProvider>
+        {screen === 'cvi' && (
+          <div className="flex flex-col h-screen">
+            {/* Header with back button */}
+            <header className="bg-gray-50 border-b border-gray-200 p-4">
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={handleBackToWelcome}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                >
+                  ← Back to Main Demo
+                </button>
+                <h1 className="text-xl font-semibold">Tavus CVI Demo</h1>
+                <div></div> {/* Spacer for centering */}
+              </div>
+            </header>
+
+            {/* CVI Demo */}
+            <div className="flex-grow">
+              <CVIDemo />
+            </div>
+          </div>
+        )}      </DailyProvider>
     </main>
   )
 }
