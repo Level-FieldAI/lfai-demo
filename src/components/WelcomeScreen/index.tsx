@@ -275,13 +275,13 @@ export default function WelcomeScreen({
       <div className="w-full max-w-4xl bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-royalBlue-600 via-royalBlue-700 to-royalBlue-800 text-white p-6 md:p-8 flex items-center justify-between">
-          <div className="w-24 md:w-36 lg:w-48">
-            <img 
-              src={LFAILogo} 
-              alt="Level-FieldAI Logo" 
-              className="max-w-full max-h-16 object-contain" 
-            />
-          </div>
+        <div className="w-32 md:w-48 lg:w-64">
+  <img 
+    src={LFAILogo} 
+    alt="Level-FieldAI Logo" 
+    className="max-w-full max-h-20 object-contain" 
+  />
+  </div>  
           <div className="text-center flex-grow">
             <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-white to-gold-200 bg-clip-text text-transparent">
               Level Field AI Avatar Experience
