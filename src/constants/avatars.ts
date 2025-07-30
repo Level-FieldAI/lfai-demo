@@ -44,12 +44,12 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
   Concierge: [
     {
       id: 'ip-advisor',
-      name: 'Senior Patent Advisor',
+      name: 'Senior Patent IP Advisor',
       description: 'Your virtual AI advisor for intellectual property matters.',
       persona_id: 'p55b8ca768bc',
       replica_id: 'rc71d224d554',
       defaultLanguage: 'english',
-      nameInGreeting: 'AIVA',
+      nameInGreeting: 'James',
       role: 'Your virtual AI senior partner at a top-tier intellectual property law firm.',
       category: 'Concierge'
     },
