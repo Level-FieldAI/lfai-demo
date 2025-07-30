@@ -43,14 +43,14 @@ export const AVATAR_CATEGORIES: Record<AvatarCategory, AvatarUseCase[]> = {
   ],
   Concierge: [
     {
-      id: 'Euless-virtual-tour-guide',
-      name: 'Virutal Library Agent',
-      description: 'Virtual tour guide for Euless Public Library tours',
-      persona_id: 'p7f770c70c12',
-      replica_id: 'r0e739516da9',
+      id: 'ip-advisor',
+      name: 'Senior Patent Advisor',
+      description: 'Your virtual AI advisor for intellectual property matters.',
+      persona_id: 'p55b8ca768bc',
+      replica_id: 'rc71d224d554',
       defaultLanguage: 'english',
-      nameInGreeting: 'Scott',
-      role: 'Your virtual AI agent for the Euless Public Library.',
+      nameInGreeting: 'AIVA',
+      role: 'Your virtual AI senior partner at a top-tier intellectual property law firm.',
       category: 'Concierge'
     },
     {
